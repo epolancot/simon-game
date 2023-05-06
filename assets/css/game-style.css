@@ -63,38 +63,80 @@ footer {
     display: flex;
 }
 
-.game-container {
+#main-container {
+    margin: 0 auto;
+    margin-top: 180px;
+}
+
+#buttons-container {
         display: grid;
-        grid-template-columns: repeat(2, 12vmin);
-        grid-template-rows: repeat(2, 12vmin);
+        grid-template-columns: repeat(2, 20vmin);
+        grid-template-rows: repeat(2, 20vmin);
         margin-top: 3vmin;
         background: rgb(161, 189, 236);
         justify-content: center;
+        border-radius: 100%;
+
+        
 }
 
-.game-container > div > button {
-    width: 12vmin;
-    height: 12vmin;
+#buttons-container > div > button {
+    width: 20vmin;
+    height: 20vmin;
+    border-color: black;
 }
 
 #green-btn > button {
-    background-color: green;
+    background-color: rgb(39, 80, 39);
+    border-radius: 100% 0% 0% 0%;
+    border-top-width: 5px;
+    border-left-width: 5px;
+    border-top-style: solid;
+    border-left-style: solid;
 
 }
 
 #red-btn > button {
-    background-color: red;
+    background-color: rgb(214, 29, 29);
+    border-radius: 0% 100% 0% 0%;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-top-style: solid;
+    border-right-style: solid;
 
 }
 
 #blue-btn > button {
-    background-color: blue;
+    background-color: rgb(49, 78, 173);
+    border-radius: 0% 0% 100% 0%;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-right-style: solid;
+    border-bottom-style: solid;
 
 }
 
 #yellow-btn > button {
-    background-color: yellow;
+    background-color: rgb(200, 200, 29);
+    border-radius: 0% 0% 0% 100%;
+    border-left-width: 5px;
+    border-bottom-width: 5px;
+    border-left-style: solid;
+    border-bottom-style: solid;
 
+}
+
+#center-btn > button {
+    border-radius: 100%;
+    width: 20vmin;
+    height: 20vmin;
+    position: absolute;
+    margin-top: -30vh;
+    margin-left: 10vh;
+    background-color: black;
+    color: white;
+    border-color: black;
+    border-style: solid;
 }
 
 
