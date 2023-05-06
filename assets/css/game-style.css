@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: Helvetica;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10% 89% 1%;
+    grid-template-areas:
+        "hdr"
+        "content"
+        "ftr"
+}
+
+h1 {
+    font-family: 'Squada One', sans-serif, cursive;
+    color: white;
+    font-size: 6.5vmin;
+
+    
+}
+
+header {
+    grid-area: hdr;
+    background: rgb(40,40,43);
+    background: linear-gradient(180deg, rgba(40,40,43,1) 0%, rgba(40,40,43,1) 97%, rgba(255,255,255,1) 100%);
+    color: darkgray;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+footer {
+
+    grid-area: ftr;
+    background: linear-gradient(to right,
+    rgb(6, 111, 15) 0%,
+    rgb(6, 111, 15) 25%,
+    rgb(239, 18, 55) 25%,
+    rgb(239, 18, 55) 50%,
+    rgb(28, 6, 228) 50%,
+    rgb(28, 6, 228) 75%,
+    rgb(245, 218, 9) 75%,
+    rgb(245, 218, 9) 100%)
+}
+
+
+main {
+    display: flex;
+    grid-area: content;
+    background-color: #FAF8F9;
+    display: flex;
+    justify-content: flex-start;
+}
+
+header,
+footer {
+    display: flex;
+}
+
+.game-container {
+        display: grid;
+        grid-template-columns: repeat(2, 12vmin);
+        grid-template-rows: repeat(2, 12vmin);
+        margin-top: 3vmin;
+        background: rgb(161, 189, 236);
+        justify-content: center;
+}
+
+.game-container > div > button {
+    width: 12vmin;
+    height: 12vmin;
+}
+
+#green-btn > button {
+    background-color: green;
+
+}
+
+#red-btn > button {
+    background-color: red;
+
+}
+
+#blue-btn > button {
+    background-color: blue;
+
+}
+
+#yellow-btn > button {
+    background-color: yellow;
+
+}
+
+
+@media all and (max-width:40em){
+    
+    }
