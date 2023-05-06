@@ -31,7 +31,7 @@ header {
     color: darkgray;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
 
 }
 
@@ -61,6 +61,8 @@ main {
 header,
 footer {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #main-container {
@@ -91,6 +93,8 @@ footer {
     border-radius: 100% 0% 0% 0%;
     border-top-width: 5px;
     border-left-width: 5px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
     border-top-style: solid;
     border-left-style: solid;
 
@@ -101,6 +105,7 @@ footer {
     border-radius: 0% 100% 0% 0%;
     border-top-width: 5px;
     border-right-width: 5px;
+    border-bottom-width: 3px; 
     border-top-style: solid;
     border-right-style: solid;
 
@@ -121,6 +126,7 @@ footer {
     border-radius: 0% 0% 0% 100%;
     border-left-width: 5px;
     border-bottom-width: 5px;
+    border-right-width: 3px;
     border-left-style: solid;
     border-bottom-style: solid;
 
