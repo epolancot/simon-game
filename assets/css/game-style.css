@@ -97,7 +97,7 @@ footer {
     border-color: black;
 }
 
-#green-btn > button {
+#green-btn {
     background-color: rgb(39, 80, 39);
     border-radius: 100% 0% 0% 0%;
     border-top-width: 5px;
@@ -109,8 +109,8 @@ footer {
 
 }
 
-#red-btn > button {
-    background-color: rgb(214, 29, 29);
+#red-btn {
+    background-color: rgb(129, 37, 37);
     border-radius: 0% 100% 0% 0%;
     border-top-width: 5px;
     border-right-width: 5px;
@@ -120,7 +120,7 @@ footer {
 
 }
 
-#blue-btn > button {
+#blue-btn {
     background-color: rgb(49, 78, 173);
     border-radius: 0% 0% 100% 0%;
     border-right-width: 5px;
@@ -130,7 +130,7 @@ footer {
 
 }
 
-#yellow-btn > button {
+#yellow-btn {
     background-color: rgb(230, 230, 17);
     border-radius: 0% 0% 0% 100%;
     border-left-width: 5px;
@@ -157,4 +157,4 @@ footer {
 
 @media all and (max-width:40em){
     
-    }
+}
