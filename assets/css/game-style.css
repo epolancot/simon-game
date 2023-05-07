@@ -5,7 +5,6 @@
 
 body {
     height: 100vh;
-    margin: 0;
     font-family: Helvetica;
     display: grid;
     grid-template-columns: 1fr;
@@ -39,14 +38,14 @@ footer {
 
     grid-area: ftr;
     background: linear-gradient(to right,
-    rgb(6, 111, 15) 0%,
-    rgb(6, 111, 15) 25%,
-    rgb(239, 18, 55) 25%,
-    rgb(239, 18, 55) 50%,
-    rgb(28, 6, 228) 50%,
-    rgb(28, 6, 228) 75%,
-    rgb(245, 218, 9) 75%,
-    rgb(245, 218, 9) 100%)
+    rgb(0, 0, 0) 0%,
+    rgb(0, 0, 0) 25%,
+    rgb(0, 0, 0) 25%,
+    rgb(0, 0, 0) 50%,
+    rgb(0, 0, 0) 50%,
+    rgb(0, 0, 0) 75%,
+    rgb(0, 0, 0) 75%,
+    rgb(0, 0, 0) 100%)
 }
 
 
@@ -70,21 +69,31 @@ footer {
     margin-top: 180px;
 }
 
+#scores-container {
+    background-color: darkgray;
+    border-radius: 3%;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    padding: 3%;
+}
+
 #buttons-container {
         display: grid;
-        grid-template-columns: repeat(2, 20vmin);
-        grid-template-rows: repeat(2, 20vmin);
-        margin-top: 3vmin;
+        grid-template-columns: repeat(2, 26vmin);
+        grid-template-rows: repeat(2, 26vmin);
+        margin-top: 5vmin;
         background: rgb(161, 189, 236);
         justify-content: center;
-        border-radius: 100%;
+        border-radius: 50%;
 
         
 }
 
 #buttons-container > div > button {
-    width: 20vmin;
-    height: 20vmin;
+    display: flex;
+    width: 26vmin;
+    height: 26vmin;
     border-color: black;
 }
 
@@ -122,7 +131,7 @@ footer {
 }
 
 #yellow-btn > button {
-    background-color: rgb(200, 200, 29);
+    background-color: rgb(230, 230, 17);
     border-radius: 0% 0% 0% 100%;
     border-left-width: 5px;
     border-bottom-width: 5px;
@@ -137,8 +146,8 @@ footer {
     width: 20vmin;
     height: 20vmin;
     position: absolute;
-    margin-top: -30vh;
-    margin-left: 10vh;
+    margin-top: -36vmin;
+    margin-left: 16vmin;
     background-color: black;
     color: white;
     border-color: black;
