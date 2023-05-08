@@ -69,13 +69,14 @@ footer {
     margin-top: 180px;
 }
 
-#scores-container {
-    background-color: darkgray;
-    border-radius: 3%;
-    border-color: black;
+#score-container {
+    display: grid;
+    grid-template-columns: repeat(2, 8vmin);
+    grid-template-rows: repeat(1, 5vmin);
+    margin-top: 5vmin;
+    background: rgb(161, 189, 236);
+    justify-content: center;
     border-style: solid;
-    border-width: 1px;
-    padding: 3%;
 }
 
 #buttons-container {
