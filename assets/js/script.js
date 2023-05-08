@@ -10,8 +10,11 @@ const options = {
 
 
 /*----- state variables -----*/
-    let turn, bestScore, currentScore;
-    let simonPattern, playerPattern = []
+    let turn // keep track of who is currently playing. 0 = Simon : 1 = Player 
+    let bestScore, currentScore // keep track of the scores
+    let stepCount // used to count through the simonPattern array after invoking playSimonPattern()
+    let simonPattern, playerPattern = [] 
+
 
     let greenSound = new Audio('../sounds/green.mp3')
     let redSound = new Audio('../sounds/red.mp3')
@@ -46,13 +49,14 @@ const options = {
         simonPattern = []
         playerPattern = []
         currentScore = 0
+        stepCount = 0
         if (bestScoreEl.innerText === "Best score:") { bestScore = 0 } 
         turn = 0;
     }
 
     function render () {
         renderScores ()
-        addToSimonPattern ()
+        addNewStep ()
     }
 
     function renderScores() {
@@ -61,28 +65,64 @@ const options = {
     }
 
     function addNewStep () {
+        //Simon's pattern is generated as the game is played adding a step to simonPattern array each cycle.
+        //To add a new step, first a random number between 1-4 is generated (representing the four buttons)
         const randomNumber = Math.floor(Math.random()*4)+1 
+
+        //Then the random number is used as a key to find the correspoding button in the options object
+        //to push said button into the simonPattern array (options objects is initialized in the constants section)
         simonPattern.push(options[randomNumber])
+
+        stepCount = 1
+
         playSimonPattern ()
 
     }
 
     function playSimonPattern (){
-        for (let i=0;i<simonPattern.length;i++) {
-            if (simonPattern[i]==="green-btn") {
-                setTimeout(greenBtnClick, 100)
 
-            } else if (simonPattern[i]==="red-btn") {
-                setTimeout(redBtnClick, 100)
+        let index = stepCount - 1
 
-            } else if (simonPattern[i]==="yellow-btn") {
-                setTimeout(yellowBtnClick, 100)
+        if (stepCount <= simonPattern.length) {
+            if (simonPattern[index]==="green-btn") {
+                greenBtnClick()
+                setTimeout(playSimonPattern, 500)
 
-            } else if (simonPattern[i]==="red-btn") {
-                setTimeout(blueBtnClick, 100)
+            } else if (simonPattern[index]==="red-btn") {
+                redBtnClick()
+                setTimeout(playSimonPattern, 500)
 
+            } else if (simonPattern[index]==="yellow-btn") {
+                yellowBtnClick()
+                setTimeout(playSimonPattern, 500)
+
+            } else if (simonPattern[index]==="blue-btn") {
+                blueBtnClick ()
+                setTimeout(playSimonPattern, 500)
             }
+
+            stepCount++
+
+        } else {
+            alert("done!")
         }
+
+        
+        // for (let i=0;i<simonPattern.length;i++) {
+        //     if (simonPattern[i]==="green-btn") {
+        //         setTimeout(greenBtnClick, 100)
+
+        //     } else if (simonPattern[i]==="red-btn") {
+        //         setTimeout(redBtnClick, 100)
+
+        //     } else if (simonPattern[i]==="yellow-btn") {
+        //         setTimeout(yellowBtnClick, 100)
+
+        //     } else if (simonPattern[i]==="red-btn") {
+        //         setTimeout(blueBtnClick, 100)
+
+        //     }
+        // }
 
     }
 
