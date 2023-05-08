@@ -198,7 +198,7 @@ const options = {
                 turn = 0
                 currentPlayerStep = 0
                 stepCount = 0
-                render()
+                setTimeout (render, 500)
     
             } else {
                 errorSound.play()
