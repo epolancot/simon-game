@@ -12,7 +12,8 @@ const options = {
 /*----- state variables -----*/
     let turn // keep track of who is currently playing. 0 = Simon : 1 = Player 
     let bestScore, currentScore // keep track of the scores
-    let stepCount // used to count through the simonPattern array after invoking playSimonPattern()
+    let stepCount // count through the simonPattern array after invoking playSimonPattern()
+    let currentPlayerStep // keep track of player's current step (see verify ()) 
     let simonPattern, playerPattern = [] 
 
 
@@ -20,6 +21,8 @@ const options = {
     let redSound = new Audio('../sounds/red.mp3')
     let blueSound = new Audio('../sounds/blue.mp3')
     let yellowSound = new Audio('../sounds/yellow.mp3')
+    let errorSound = new Audio('../sounds/error.mp3')
+
 
 
 /*----- cached elements  -----*/
@@ -46,12 +49,20 @@ const options = {
     init();
 
     function init(){
+
+        greenBtnEl.disabled = true
+        redBtnEl.disabled = true
+        blueBtnEl.disabled = true
+        yellowBtnEl.disabled = true
+
         simonPattern = []
         playerPattern = []
         currentScore = 0
         stepCount = 0
+        centerBtnEl.innerHTML = "Start"
         if (bestScoreEl.innerText === "Best score:") { bestScore = 0 } 
-        turn = 0;
+        turn = 0
+        currentPlayerStep = 0
     }
 
     function render () {
@@ -65,23 +76,25 @@ const options = {
     }
 
     function addNewStep () {
-        //Simon's pattern is generated as the game is played adding a step to simonPattern array each cycle.
-        //To add a new step, first a random number between 1-4 is generated (representing the four buttons)
+        //Simon's pattern is generated as the game is played by adding a step to simonPattern array each cycle.
+        //To add a new step, first a random number between 1-4 is generated (representing one of the four buttons)
         const randomNumber = Math.floor(Math.random()*4)+1 
 
-        //Then the random number is used as a key to find the correspoding button in the options object
-        //to push said button into the simonPattern array (options objects is initialized in the constants section)
+        //The random number is used as a key to find the correspoding button in the options object (see constants section)
+        //to push said button's label into the simonPattern array.
         simonPattern.push(options[randomNumber])
 
-        stepCount = 1
+        stepCount++
 
         playSimonPattern ()
 
     }
 
     function playSimonPattern (){
+        // This function will call itself every half a second simonPattern.length times,
+        // then switch turns.
 
-        let index = stepCount - 1
+        let index = stepCount-1
 
         if (stepCount <= simonPattern.length) {
             if (simonPattern[index]==="green-btn") {
@@ -104,25 +117,14 @@ const options = {
             stepCount++
 
         } else {
-            alert("done!")
+            turn = 1
+            greenBtnEl.disabled = false
+            redBtnEl.disabled = false
+            blueBtnEl.disabled = false
+            yellowBtnEl.disabled = false
+            centerBtnEl.innerText = "Your turn!"
         }
 
-        
-        // for (let i=0;i<simonPattern.length;i++) {
-        //     if (simonPattern[i]==="green-btn") {
-        //         setTimeout(greenBtnClick, 100)
-
-        //     } else if (simonPattern[i]==="red-btn") {
-        //         setTimeout(redBtnClick, 100)
-
-        //     } else if (simonPattern[i]==="yellow-btn") {
-        //         setTimeout(yellowBtnClick, 100)
-
-        //     } else if (simonPattern[i]==="red-btn") {
-        //         setTimeout(blueBtnClick, 100)
-
-        //     }
-        // }
 
     }
 
@@ -133,7 +135,11 @@ const options = {
     function greenBtnClick(){
         greenSound.play()
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
-        setTimeout(greenBtnRelease, 200)   
+        setTimeout(greenBtnRelease, 200)  
+        
+        if (turn===1) {
+        verify ("green-btn")       
+        };
     }
 
     function greenBtnRelease () {
@@ -145,6 +151,10 @@ const options = {
         redSound.play()
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
         setTimeout(redBtnRelease, 200)  
+
+        if (turn===1) {
+            verify ("red-btn")       
+        };
     
     }
 
@@ -156,7 +166,11 @@ const options = {
     function blueBtnClick(){
         blueSound.play()
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
-        setTimeout(blueBtnRelease, 200)    
+        setTimeout(blueBtnRelease, 200)
+        
+        if (turn===1) {
+            verify ("blue-btn")       
+        };
     }
 
     function blueBtnRelease(){
@@ -168,10 +182,39 @@ const options = {
         yellowSound.play()
         yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
         setTimeout(yellowBtnRelease, 200)  
+
+        if (turn===1) {
+            verify ("yellow-btn")       
+        };
     }
 
     function yellowBtnRelease() {
         yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
+    }
+
+    function verify (selectedButton) {
+        if (currentPlayerStep === simonPattern.length-1) {
+            if (selectedButton === simonPattern[currentPlayerStep]){
+                turn = 0
+                currentPlayerStep = 0
+                stepCount = 0
+                render()
+    
+            } else {
+                errorSound.play()
+                init()
+            }
+        } else {
+            if (selectedButton === simonPattern[currentPlayerStep]){
+                currentPlayerStep++
+    
+            } else {
+                errorSound.play()
+                init()
+            }
+
+        }
+
     }
 
 
