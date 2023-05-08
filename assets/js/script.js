@@ -8,9 +8,15 @@ const options = {
 
 
 
+
 /*----- state variables -----*/
     let turn, bestScore, currentScore;
     let simonPattern, playerPattern = []
+
+    let greenSound = new Audio('../sounds/green.mp3')
+    let redSound = new Audio('../sounds/red.mp3')
+    let blueSound = new Audio('../sounds/blue.mp3')
+    let yellowSound = new Audio('../sounds/yellow.mp3')
 
 
 /*----- cached elements  -----*/
@@ -26,7 +32,7 @@ const options = {
 
 
 /*----- event listeners -----*/
-    document.getElementById("center-btn").addEventListener("click", actionBtn)
+    document.getElementById("center-btn").addEventListener("click", centerBtnClick)
     document.getElementById("green-btn").addEventListener("click", greenBtnClick)
     document.getElementById("red-btn").addEventListener("click", redBtnClick)
     document.getElementById("yellow-btn").addEventListener("click", yellowBtnClick)
@@ -42,8 +48,6 @@ const options = {
         currentScore = 0
         if (bestScoreEl.innerText === "Best score:") { bestScore = 0 } 
         turn = 0;
-
-        render ()
     }
 
     function render () {
@@ -56,8 +60,8 @@ const options = {
         currentScoreEl.innerText = `Current score: ${currentScore}`
     }
 
-    function addToSimonPattern () {
-        const randomNumber = Math.floor(Math.random()*4)+1
+    function addNewStep () {
+        const randomNumber = Math.floor(Math.random()*4)+1 
         simonPattern.push(options[randomNumber])
         playSimonPattern ()
 
@@ -72,21 +76,22 @@ const options = {
                 setTimeout(redBtnClick, 100)
 
             } else if (simonPattern[i]==="yellow-btn") {
-                setTimeout(yellowBtnClick, 500)
+                setTimeout(yellowBtnClick, 100)
 
             } else if (simonPattern[i]==="red-btn") {
-                setTimeout(blueBtnClick, 500)
+                setTimeout(blueBtnClick, 100)
 
             }
         }
 
     }
 
-    function actionBtn(){
-        alert("Center");
+    function centerBtnClick(){
+        render ()
     }
 
     function greenBtnClick(){
+        greenSound.play()
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
         setTimeout(greenBtnRelease, 200)   
     }
@@ -97,6 +102,7 @@ const options = {
     }
 
     function redBtnClick(){
+        redSound.play()
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
         setTimeout(redBtnRelease, 200)  
     
@@ -108,6 +114,7 @@ const options = {
     }
 
     function blueBtnClick(){
+        blueSound.play()
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
         setTimeout(blueBtnRelease, 200)    
     }
@@ -118,6 +125,7 @@ const options = {
     }
 
     function yellowBtnClick(){
+        yellowSound.play()
         yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
         setTimeout(yellowBtnRelease, 200)  
     }
@@ -128,9 +136,5 @@ const options = {
 
 
 
-    //compare user's pattern with computer's pattern
 
-    //keep track of score
-
-    //render()
 
