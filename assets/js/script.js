@@ -49,11 +49,13 @@ const options = {
         redBtnEl.disabled = true
         blueBtnEl.disabled = true
         yellowBtnEl.disabled = true
+        centerBtnEl.disabled = false
 
         simonPattern = []
         playerPattern = []
         currentScore = 0
         stepCount = 0
+        centerBtnEl.style.fontFamily = "Helvetica"
         centerBtnEl.innerHTML = "Start"
         if (bestScoreEl.innerText === "Best score:") { bestScore = 0 } 
         turn = 0
@@ -83,8 +85,10 @@ const options = {
         stepCount++
 
         if (simonPattern.length > 1) {
+            centerBtnEl.style.fontFamily = "Orbitron"
             centerBtnEl.innerText = simonPattern.length
         } else {
+            centerBtnEl.style.fontFamily = "Helvetica"
             centerBtnEl.innerText = "Your turn!"
         }
 
@@ -124,6 +128,7 @@ const options = {
             redBtnEl.disabled = false
             blueBtnEl.disabled = false
             yellowBtnEl.disabled = false
+            centerBtnEl.disabled = true
 
         }
 
