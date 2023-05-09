@@ -11,7 +11,7 @@ const options = {
     let bestScore, currentScore // keep track of the scores
     let stepCount // count through the simonPattern array after invoking playSimonPattern()
     let currentPlayerStep // keep track of player's current step (see verify ()) 
-    let simonPattern, playerPattern = [] 
+    let simonPattern = [] 
 
 
     let greenSound = new Audio('../sounds/green.mp3')
@@ -46,30 +46,33 @@ const options = {
     init();
 
     function init(){
+
+        //Disable control buttons. Enable Start button
         greenBtnEl.disabled = true
         redBtnEl.disabled = true
         blueBtnEl.disabled = true
         yellowBtnEl.disabled = true
         centerBtnEl.disabled = false
 
+        //Initialized variables
         simonPattern = []
-        playerPattern = []
         currentScore = 0
         stepCount = 0
-        centerBtnEl.style.fontFamily = "Helvetica"
-        centerBtnEl.innerHTML = "Start"
-        if (bestScoreEl.innerText === "Best score:") { bestScore = 0 } 
         turn = 0
         currentPlayerStep = 0
         bestScore = 0
+
+        //Prepare center button caption
+        centerBtnEl.style.fontFamily = "Helvetica"
+        centerBtnEl.innerHTML = "Start"
     }
 
     function render () {
-        renderScores ()
+        renderBestScore ()
         addNewStep ()
     }
 
-    function renderScores() {
+    function renderBestScore() {
         bestScoreEl.innerText = bestScore
 
     }
@@ -279,10 +282,11 @@ const options = {
             document.getElementById("yellow-btn").style.borderColor = "#3c3c3c"
 
 
+
         } else {
             // night mode Off
-            document.getElementById("main-wrapper").style.background = "#000000"
-            document.getElementById("score-container").style.background = "#000000"
+            document.getElementById("main-wrapper").style.background = "#ffffff"
+            document.getElementById("score-container").style.background = "#ffffff"
             document.getElementById("score-container").style.color = "#000000"
             document.getElementById("best-score").style.color = "#000000"
             document.getElementById("green-btn").style.borderColor = "#000000"
