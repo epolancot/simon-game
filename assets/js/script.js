@@ -105,19 +105,19 @@ const options = {
         if (stepCount <= simonPattern.length) {
             if (simonPattern[index]==="green-btn") {
                 greenBtnClick()
-                setTimeout(playSimonPattern, 500)
+                setTimeout(playSimonPattern, 600)
 
             } else if (simonPattern[index]==="red-btn") {
                 redBtnClick()
-                setTimeout(playSimonPattern, 500)
+                setTimeout(playSimonPattern, 600)
 
             } else if (simonPattern[index]==="yellow-btn") {
                 yellowBtnClick()
-                setTimeout(playSimonPattern, 500)
+                setTimeout(playSimonPattern, 600)
 
             } else if (simonPattern[index]==="blue-btn") {
                 blueBtnClick ()
-                setTimeout(playSimonPattern, 500)
+                setTimeout(playSimonPattern, 600)
             }
 
             stepCount++
