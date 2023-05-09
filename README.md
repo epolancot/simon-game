@@ -41,7 +41,7 @@ After the first functional implementation of this project, beta tester complaine
 #### **In the beginning the buttons were sad**
 ![Sad buttons](/assets/imgs/game-intro-basic-buttons.png)
 
-#### After receiving some CSS' border-radius love they are now full of joy, waiting for avid players to try their best to beat Simon. 
+#### With some CSS' border-radius love they are now full of joy, waiting for avid players to try their best to beat Simon. 
 
 #### The game is carried by the following Javascript functions:
 - init() --> Starts/resets variables and DOM elements.

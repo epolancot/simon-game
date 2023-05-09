@@ -101,8 +101,6 @@ const options = {
     }
 
     function playSimonPattern (){
-        // This function will call itself every half a second simonPattern.length times,
-        // then switch turns.
 
         let index = stepCount-1
 
