@@ -281,8 +281,8 @@ const options = {
 
         } else {
             // night mode Off
-            document.getElementById("main-wrapper").style.background = "#FAF8F9"
-            document.getElementById("score-container").style.background = "#FAF8F9"
+            document.getElementById("main-wrapper").style.background = "#000000"
+            document.getElementById("score-container").style.background = "#000000"
             document.getElementById("score-container").style.color = "#000000"
             document.getElementById("best-score").style.color = "#000000"
             document.getElementById("green-btn").style.borderColor = "#000000"

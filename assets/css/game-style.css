@@ -19,7 +19,7 @@ body {
 h1 {
     font-family: 'Squada One', sans-serif, cursive;
     color: white;
-    font-size: 6.5vmin;
+    font-size: 6.5vh;
 
     
 }
@@ -36,7 +36,7 @@ header {
 }
 
 footer {
-
+    visibility: hidden;
     grid-area: ftr;
     background: linear-gradient(to right,
     rgb(0, 0, 0) 0%,
@@ -53,7 +53,7 @@ footer {
 main {
     display: flex;
     grid-area: content;
-    background-color: #FAF8F9;
+    background-color: #ffffff;
     display: flex;
     justify-content: flex-start;
 }
@@ -85,13 +85,13 @@ footer {
 
 #best-score {
     font-family: Helvetica;
-    margin-left: 25px;
+    margin-left: 4vmin;
 }
 
 #buttons-container {
         display: grid;
-        grid-template-columns: repeat(2, 26vmin);
-        grid-template-rows: repeat(2, 26vmin);
+        grid-template-columns: repeat(2, 26vh);
+        grid-template-rows: repeat(2, 26vh);
         margin-top: 5vmin;
         background: rgb(161, 189, 236);
         justify-content: center;
@@ -102,8 +102,8 @@ footer {
 
 #buttons-container > div > button {
     display: flex;
-    width: 26vmin;
-    height: 26vmin;
+    width: 26vh;
+    height: 26vh;
     border-color: rgb(0, 0, 0);
 }
 
@@ -153,14 +153,14 @@ footer {
 
 #center-btn {
     border-radius: 100%;
-    width: 20vmin;
-    height: 20vmin;
+    width: 20vh;
+    height: 20vh;
     position: absolute;
-    margin-top: -36vmin;
-    margin-left: 16vmin;
+    margin-top: -36vh;
+    margin-left: 16vh;
     background-color: black;
     color: white;
-    font-size: 6vmin;
+    font-size: 6vh;
     border-color: black;
     border-style: solid;
 }
@@ -223,5 +223,30 @@ input[type=checkbox]{
 
 
 @media all and (max-width:40em){
+    #buttons-container {
+        display: grid;
+        grid-template-columns: repeat(2, 20vh);
+        grid-template-rows: repeat(2, 20vh);
+        margin-top: 5vmin;
+        background: rgb(161, 189, 236);
+        justify-content: center;
+        border-radius: 50%;
+
+        
+}
+
+#buttons-container > div > button {
+    width: 20vh;
+    height: 20vh;
+}
+
+#center-btn {
+    width: 17vh;
+    height: 17vh;
+    margin-top: -29vh;
+    margin-left: 12vh;
+    font-size: 6vh;
+
+}
     
 }
