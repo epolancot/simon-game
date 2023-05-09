@@ -78,13 +78,14 @@ footer {
     justify-content: center;
     border-style: solid;
     border-radius: 5%;
-    font-size: 4vmin;
+    font-size: 5vmin;
+    padding: 8px;
 
 }
 
 #best-score {
     font-family: Helvetica;
-    margin-left: 10px;
+    margin-left: 25px;
 }
 
 #buttons-container {
@@ -103,7 +104,7 @@ footer {
     display: flex;
     width: 26vmin;
     height: 26vmin;
-    border-color: black;
+    border-color: rgb(0, 0, 0);
 }
 
 #green-btn {
@@ -188,7 +189,7 @@ input[type=checkbox]{
     text-indent: -9999px;
     width: 60px;
     height: 28px;
-    background: grey;
+    background: rgb(40, 40, 43);
     display: block;
     border-radius: 100px;
     position: relative;
@@ -201,13 +202,13 @@ input[type=checkbox]{
     left: 5px;
     width: 25px;
     height: 25px;
-    background: #000000;
+    background: #ffffff;
     border-radius: 90px;
     transition: 0.3s;
   }
   
   input:checked + label {
-    background: #bcbcbc;
+    background: #8e8e8e;
   }
   
   input:checked + label:after {

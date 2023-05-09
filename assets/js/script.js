@@ -39,6 +39,7 @@ const options = {
     document.getElementById("red-btn").addEventListener("click", redBtnClick)
     document.getElementById("yellow-btn").addEventListener("click", yellowBtnClick)
     document.getElementById("blue-btn").addEventListener("click", blueBtnClick)
+    document.getElementById("switch").addEventListener("click", modeToggle)
 
 
 /*----- functions -----*/
@@ -261,4 +262,32 @@ const options = {
 
         errorSound.play()
         init()   
+    }
+
+    // Activate/deactivate night mode
+    function modeToggle() {
+
+        if (document.getElementById("switch").checked) {
+            // night mode On
+            document.getElementById("main-wrapper").style.background = "#000000"
+            document.getElementById("score-container").style.background = "#000000"
+            document.getElementById("score-container").style.color = "#ffffff"
+            document.getElementById("best-score").style.color = "#ffffff"
+            document.getElementById("green-btn").style.borderColor = "#3c3c3c"
+            document.getElementById("red-btn").style.borderColor = "#3c3c3c"
+            document.getElementById("blue-btn").style.borderColor = "#3c3c3c"
+            document.getElementById("yellow-btn").style.borderColor = "#3c3c3c"
+
+
+        } else {
+            // night mode Off
+            document.getElementById("main-wrapper").style.background = "#FAF8F9"
+            document.getElementById("score-container").style.background = "#FAF8F9"
+            document.getElementById("score-container").style.color = "#000000"
+            document.getElementById("best-score").style.color = "#000000"
+            document.getElementById("green-btn").style.borderColor = "#000000"
+            document.getElementById("red-btn").style.borderColor = "#000000"
+            document.getElementById("blue-btn").style.borderColor = "#000000"
+            document.getElementById("yellow-btn").style.borderColor = "#000000"
+        }
     }
