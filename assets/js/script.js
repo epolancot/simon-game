@@ -10,23 +10,16 @@ const emojis = {
     "1": "👍",
     "2": "🤌",
     "3": "😮",
-    "4": "🤪",
+    "4": "😛",
     "5": "😎",
-    "6": "👻",
-    "7": "😈",
+    "6": "😈",
+    "7": "👻",
     "8": "🙌",
     "9": "🧑‍🚀",
     "10": "🥷",
     "11": "💪",
     "12": "🤓"
 }
-
-
-
-//basic setting for setTimeouts
-const releaseTime = 200 //controls the color change when player or simon clicks
-const simonPlayTime = 1000 //controls the amount of time between each step in Simon's sequence
-const correctColorTime = 550 //when the player loses, this controls the amount of time the correct step is displayed on screen
 
 /*----- state variables -----*/
 let turn // keep track of who is currently playing. 0 = Simon : 1 = Player 
@@ -42,6 +35,10 @@ let blueSound = new Audio('../sounds/blue.mp3')     //duration 0.5228
 let yellowSound = new Audio('../sounds/yellow.mp3') //duration 0.5235
 let errorSound = new Audio('../sounds/error.mp3')   //duration 1.619594
 
+//time setting for setTimeouts()
+let releaseTime = 300 //controls the color change when player or simon clicks
+let simonPlayTime = 1700 //controls the amount of time between each step in when Simon is playing simonPattern sequence
+let correctColorTime = 550 //when the player loses, this controls the amount of time the correct step is displayed on screen
 
 
 
@@ -63,6 +60,7 @@ document.getElementById("red-btn").addEventListener("click", redBtnClick)
 document.getElementById("yellow-btn").addEventListener("click", yellowBtnClick)
 document.getElementById("blue-btn").addEventListener("click", blueBtnClick)
 document.getElementById("switch").addEventListener("click", modeToggle)
+
 
 
 /*----- functions -----*/
@@ -237,7 +235,7 @@ function verify(selectedButton) {
 
         //check if the user's selection matches the step in the sequence
         if (selectedButton === simonPattern[currentPlayerStep]) {
-            //reset variables and call render to start the next sequence
+            //reset variables, set Emoji and call render to start the next sequence
             turn = 0
             currentPlayerStep = 0
             stepCount = 0
@@ -311,8 +309,22 @@ function setEmoji(level) {
         centerBtnEl.innerText = emojis["3"]
     } else if (level < 12) {
         centerBtnEl.innerText = emojis["4"]
-    } else if (level ===12) {
+    } else if (level < 15) {
         centerBtnEl.innerText = emojis["5"]
+    } else if (level === 15 ){
+        centerBtnEl.innerText = emojis["6"]      
+    } else if (level < 20) {
+        centerBtnEl.innerText = emojis["7"] 
+    } else if (level < 23) {
+        centerBtnEl.innerText = emojis["8"] 
+    } else if (level < 26) {
+        centerBtnEl.innerText = emojis["9"] 
+    } else if (level < 30) {
+        centerBtnEl.innerText = emojis["10"] 
+    } else if (level < 35) {
+        centerBtnEl.innerText = emojis["11"] 
+    } else if (level === 35) {
+        centerBtnEl.innerText = emojis["12"] 
     }
 }
 

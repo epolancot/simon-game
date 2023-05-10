@@ -1,5 +1,5 @@
 # Simon game
-![Smile](/assets/imgs/game-intro.png)
+![robot](/assets/imgs/game-intro.png)
 
 ## Date: 5/12/2023
 
@@ -24,7 +24,6 @@
   - Flexbox
   - Grid
 - Javascript
-- Affinity Photo
 
 ---
 
@@ -32,7 +31,7 @@
 
 ### **Wireframing**
 
-![Smile](https://www.buckerblog.com/wp-content/uploads/2023/05/Simon.png)
+![wireframe](/assets/imgs/wireframing.png)
 
 After the first functional implementation of this project, beta tester complained about confusing scores display. The Current Score now resides in the center of the controls, saving screen real estate and putting that DOM element to work full time.
 
@@ -49,15 +48,18 @@ After the first functional implementation of this project, beta tester complaine
 - renderBestScore() --> updates **_div id="best-score"_**.
 - addNewStep() --> Generate random number, adds it to simonPattern array and calls playSimonPattern().
 - playSimonPattern() --> Reads through simonPattern array and calls the click function per step.
-- button functions --> Each button's onClick/release events
+- button functions
+  -setPlayBtnStatus--> Enable/Disable controls.
+  -click() functions for each color and center button.
 - verify() --> Checks if the player's current click in the sequence is found in simonPattern array in the correct order.
 - lose() --> Sets the best score (if needed) and call the init() function to restart the game.
+- setEmoji() --> Displays an emoji from emojis' object depending on the current level.
 - modeToggle() --> Updates DOM elements depending if dark mode is selected or not.
 
 
 ---
 
 ### **_Future Updates_**
-
+- Improve timing in Safari
 - Improve difficulty in advanced levels
 
