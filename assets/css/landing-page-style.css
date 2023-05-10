@@ -18,7 +18,7 @@ body {
 h1 {
     font-family: 'Squada One', sans-serif, cursive;
     color: white;
-    font-size: 6.5vh;
+    font-size: 4em;
 
     
 }
@@ -64,6 +64,10 @@ footer {
     align-items: center;
 }
 
+a {
+    text-decoration: none;
+}
+
 .content-wrapper {
     display: flex;
     width: 100%;
@@ -75,17 +79,44 @@ footer {
     width: 55%;
     margin: 0 auto;
     font-family: Verdana;
-    font-size: 3.5vmin;
+    font-size: 2em;
 
 }
 
-#robot {
-    height: 25vmin;
-    width: 18vmin;
+#play-button {
     display: flex;
-    margin-top: 60vh;
+    justify-content: center; 
+    margin-top: 3em;  
+}
+
+#play-button > a > button {
+    appearance: none;
+    background-color: rgb(0, 0, 0);
+    border-radius: 4px;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-flex;
+    overflow: hidden;
+    width: 6em;
+    height: 2.3em;
+    justify-content: center;
+    transition: box-shadow .15s,transform .15s;
+    color: white;
+    font-size: 0.8em;
+    padding-top: 10px;
+}
+
+#robot {
+    display: flex;
     margin-left: 10vmin;
+    margin-top: 50vh;
     position: absolute;
+}
+
+#robot > img {
+    height: 35vh;
+    width: 25vh;
 }
 
 #credits {
@@ -93,20 +124,113 @@ footer {
     margin-bottom: 0;
 }
 
-@media all and (max-width:40em){
-    #robot {
-        height: 55vmin;
-        width: 25vmin;
-        display: flex;
-        margin-top: 55vh;
-        margin-left: 3vmin;
-        position: absolute;
+@media all and (orientation: landscape) {
+    body {
+        height: 175vh;
+        font-family: Helvetica;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 10% 89% 1%;
+        grid-template-areas:
+            "hdr"
+            "content"
+            "ftr"
     }
 
-    h1 {
-        font-size: 12vmin;
-    
-        
+
+  }
+
+@media all and (max-width:992px){     
+    #robot {
+        margin-left: 20px;
+        margin-top: 550px;
     }
-    
+    #robot > img {
+        height: 20vh;
+        width: 15vh;
     }
+
+    .content-wrapper > section {
+        font-size: 1.6em;
+    }
+
+    #play-button {
+        margin-top: 1.5em;
+    }
+
+    #play-button > button {
+        padding-top: 12px;
+        font-size: 1.2em;
+    }
+}
+
+@media all and (max-width:768px){     
+    #robot {
+        margin-left: 20px;
+        margin-top: 550px;
+    }
+    #robot > img {
+        height: 20vh;
+        width: 15vh;
+    }
+
+    .content-wrapper > section {
+        font-size: 1.5em;
+    }
+
+    #play-button {
+        margin-top: 1.5em;
+    }
+
+    #play-button >a > button {
+        padding-top: 8px;
+        font-size: 1em;
+    }
+}
+
+@media all and (max-width:576px){     
+    #robot {
+        margin-left: 10px;
+        margin-top: 492px;
+    }
+    #robot > img {
+        height: 20vmax;
+        width: 15vmax;
+    }
+
+    .content-wrapper > section {
+        font-size: 1em;
+    }
+
+    #play-button {
+        margin-top: 1.2em;
+    }
+
+    #play-button > a >button {
+        padding-top: 6.5px;
+        font-size: 1.3em;
+        width: 7em;
+        height: 2em;
+    }
+}
+
+@media all and (max-width:280px){     
+    #robot > img {
+        visibility: hidden;
+    }
+
+    .content-wrapper > section {
+        font-size: 0.9em;
+    }
+
+    #play-button {
+        margin-top: 1.5em;
+    }
+
+    #play-button > a > button {
+        padding-top: 5px;
+        font-size: 1em;
+        width: 8em;
+        height: 2.5em;
+    }
+}

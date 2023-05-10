@@ -11,9 +11,9 @@ const options = {
     let bestScore, currentScore // keep track of the scores
     let stepCount // count through the simonPattern array after invoking playSimonPattern()
     let currentPlayerStep // keep track of player's current step (see verify ()) 
-    let simonPattern = [] 
+    let simonPattern = [] // holds Simon's step sequence. Ex. ["green-btn", "blue-btn", "blue-btn"]
 
-
+    // game sounds variables
     let greenSound = new Audio('../sounds/green.mp3')
     let redSound = new Audio('../sounds/red.mp3')
     let blueSound = new Audio('../sounds/blue.mp3')
@@ -54,7 +54,7 @@ const options = {
         yellowBtnEl.disabled = true
         centerBtnEl.disabled = false
 
-        //Initialized variables
+        //Initialize variables
         simonPattern = []
         currentScore = 0
         stepCount = 0
