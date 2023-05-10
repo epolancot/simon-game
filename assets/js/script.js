@@ -6,19 +6,42 @@ const options = {
     "4": "blue-btn"
 }
 
+const emojis = {
+    "1": "👍",
+    "2": "🤌",
+    "3": "😮",
+    "4": "🤪",
+    "5": "😎",
+    "6": "👻",
+    "7": "😈",
+    "8": "🙌",
+    "9": "🧑‍🚀",
+    "10": "🥷",
+    "11": "💪",
+    "12": "🤓"
+}
+
+
+
+//basic setting for setTimeouts
+const releaseTime = 200 //controls the color change when player or simon clicks
+const simonPlayTime = 1000 //controls the amount of time between each step in Simon's sequence
+const correctColorTime = 550 //when the player loses, this controls the amount of time the correct step is displayed on screen
+
 /*----- state variables -----*/
 let turn // keep track of who is currently playing. 0 = Simon : 1 = Player 
 let bestScore, currentScore // keep track of the scores
-let stepCount // count through the simonPattern array after invoking playSimonPattern()
-let currentPlayerStep // keep track of player's current step (see verify ()) 
-let simonPattern = [] // holds Simon's step sequence. Ex. ["green-btn", "blue-btn", "blue-btn"]
+let stepCount // used to count through the simonPattern array after invoking playSimonPattern()
+let currentPlayerStep // keep track of player's current step in the sequence (see verify ()) 
+let simonPattern = [] // holds Simon's steps sequence. Ex. ["green-btn", "blue-btn", "blue-btn"] 
 
 // game sounds variables
-let greenSound = new Audio('../sounds/green.mp3')
-let redSound = new Audio('../sounds/red.mp3')
-let blueSound = new Audio('../sounds/blue.mp3')
-let yellowSound = new Audio('../sounds/yellow.mp3')
-let errorSound = new Audio('../sounds/error.mp3')
+let greenSound = new Audio('../sounds/green.mp3')   //duration 0.41775
+let redSound = new Audio('../sounds/red.mp3')       //duration 0.418333
+let blueSound = new Audio('../sounds/blue.mp3')     //duration 0.5228
+let yellowSound = new Audio('../sounds/yellow.mp3') //duration 0.5235
+let errorSound = new Audio('../sounds/error.mp3')   //duration 1.619594
+
 
 
 
@@ -46,12 +69,8 @@ document.getElementById("switch").addEventListener("click", modeToggle)
 init();
 
 function init() {
-    //Disable control buttons. Enable Start button
-    greenBtnEl.disabled = true
-    redBtnEl.disabled = true
-    blueBtnEl.disabled = true
-    yellowBtnEl.disabled = true
-    centerBtnEl.disabled = false
+    //Disable play buttons. Enable Start button
+    setPlayBtnStatus("disabled")
 
     //Initialize variables
     simonPattern = []
@@ -73,7 +92,6 @@ function render() {
 
 function renderBestScore() {
     bestScoreEl.innerText = bestScore
-
 }
 
 function addNewStep() {
@@ -104,35 +122,51 @@ function playSimonPattern() {
     let index = stepCount - 1
 
     if (stepCount <= simonPattern.length) {
+        setPlayBtnStatus("disabled")
         if (simonPattern[index] === "green-btn") {
             greenBtnClick()
-            setTimeout(playSimonPattern, 600)
+            setTimeout(playSimonPattern, simonPlayTime)
 
         } else if (simonPattern[index] === "red-btn") {
             redBtnClick()
-            setTimeout(playSimonPattern, 600)
+            setTimeout(playSimonPattern, simonPlayTime)
 
         } else if (simonPattern[index] === "yellow-btn") {
             yellowBtnClick()
-            setTimeout(playSimonPattern, 600)
+            setTimeout(playSimonPattern, simonPlayTime)
 
         } else if (simonPattern[index] === "blue-btn") {
             blueBtnClick()
-            setTimeout(playSimonPattern, 600)
+            setTimeout(playSimonPattern, simonPlayTime)
         }
 
         stepCount++
 
     } else {
         turn = 1
+        setPlayBtnStatus("enabled")
+
+    }
+
+
+}
+
+function setPlayBtnStatus(status) {
+    //Enables/Disables play buttons or center button as needed 
+    if (status === "enabled"){
         greenBtnEl.disabled = false
         redBtnEl.disabled = false
         blueBtnEl.disabled = false
         yellowBtnEl.disabled = false
         centerBtnEl.disabled = true
+    
+    } else if (status === "disabled") {
+        greenBtnEl.disabled = true
+        redBtnEl.disabled = true
+        blueBtnEl.disabled = true
+        yellowBtnEl.disabled = true
+        centerBtnEl.disabled = false
     }
-
-
 }
 
 function centerBtnClick() {
@@ -146,16 +180,12 @@ function greenBtnClick() {
         if (verify("green-btn")) {
             greenSound.play()
             greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
-            setTimeout(btnRelease => {
-                greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)"
-            }, 500)
+            setTimeout(() => greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)", releaseTime)
         } 
     } else {
         greenSound.play()
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
-        setTimeout(btnRelease => {
-            greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)"
-        }, 500)
+        setTimeout(() => greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)", releaseTime)
     }
 }
 
@@ -164,16 +194,12 @@ function redBtnClick() {
         if (verify("red-btn")) {
             redSound.play()
             redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
-            setTimeout(btnRelease => {
-                redBtnEl.style.backgroundColor = "rgb(129, 37, 37)"
-            }, 500)
+            setTimeout(() => redBtnEl.style.backgroundColor = "rgb(129, 37, 37)", releaseTime)
         } 
     } else {
         redSound.play()
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
-        setTimeout(btnRelease => {
-            redBtnEl.style.backgroundColor = "rgb(129, 37, 37)"
-        }, 500)
+        setTimeout(() => redBtnEl.style.backgroundColor = "rgb(129, 37, 37)", releaseTime)
     }
 }
 
@@ -182,16 +208,12 @@ function blueBtnClick() {
         if (verify("blue-btn")) {
             blueSound.play()
             blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
-            setTimeout(btnRelease => {
-                blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)"
-            }, 500)
+            setTimeout(() => blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)", releaseTime)
         } 
     } else {
         blueSound.play()
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
-        setTimeout(btnRelease => {
-            blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)"
-        }, 500)
+        setTimeout(() => blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)", releaseTime)
     }
 }
 
@@ -200,16 +222,12 @@ function yellowBtnClick() {
         if (verify("yellow-btn")) {
             yellowSound.play()
             yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
-            setTimeout(btnRelease => {
-                yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
-            }, 500)
+            setTimeout(() => yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)", releaseTime)
         }
     } else {
-        yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
-        setTimeout(btnRelease => {
-            yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
-        }, 500)
         yellowSound.play()
+        yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
+        setTimeout(() => yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)", releaseTime)
     }
 }
 
@@ -219,12 +237,12 @@ function verify(selectedButton) {
 
         //check if the user's selection matches the step in the sequence
         if (selectedButton === simonPattern[currentPlayerStep]) {
-
             //reset variables and call render to start the next sequence
             turn = 0
             currentPlayerStep = 0
             stepCount = 0
-            setTimeout(render, 1000)
+            setEmoji(simonPattern.length)
+            setTimeout(render,2000)
             return true
 
         } else {
@@ -253,24 +271,26 @@ function lose(correctStep) {
     //show correct color in the sequence after losing
     if (correctStep==="green-btn") {
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
-        setTimeout(greenBtnRelease, 300)
+        setTimeout(btnRelease => {
+            greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)"
+        }, correctColorTime)
     } else if (correctStep==="red-btn") {
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
         setTimeout(btnRelease => {
             redBtnEl.style.backgroundColor = "rgb(129, 37, 37)"
-        }, 500)
+        }, correctColorTime)
 
     } else if (correctStep==="blue-btn") {
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
         setTimeout(btnRelease => {
             blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)"
-        }, 500)
+        }, correctColorTime)
 
     } else if (correctStep==="yellow-btn") {
         yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
         setTimeout(btnRelease => {
             yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
-        }, 500)
+        }, correctColorTime)
     }
 
     if (currentScore > bestScore) {
@@ -280,6 +300,20 @@ function lose(correctStep) {
     bestScoreEl.innerText = bestScore
 
     init()
+}
+
+function setEmoji(level) {
+    if (level < 5) {
+        centerBtnEl.innerText = emojis["1"]
+    } else if (level < 10) {
+        centerBtnEl.innerText = emojis["2"]
+    } else if (level === 10) {
+        centerBtnEl.innerText = emojis["3"]
+    } else if (level < 12) {
+        centerBtnEl.innerText = emojis["4"]
+    } else if (level ===12) {
+        centerBtnEl.innerText = emojis["5"]
+    }
 }
 
 // Activate/deactivate night mode
