@@ -140,24 +140,23 @@ function centerBtnClick() {
 }
 
 function greenBtnClick() {
+    //first check who is clicking. 1 = user : else = Simon
     if (turn === 1) {
+        //verify(selectedButton) returns true if argument matches simonPattern array in this step of the sequence
         if (verify("green-btn")) {
             greenSound.play()
             greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
-            setTimeout(greenBtnRelease, 300)
+            setTimeout(btnRelease => {
+                greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)"
+            }, 500)
         } 
     } else {
         greenSound.play()
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
-        setTimeout(greenBtnRelease, 300)
+        setTimeout(btnRelease => {
+            greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)"
+        }, 500)
     }
-
-
-}
-
-function greenBtnRelease() {
-    greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)"
-
 }
 
 function redBtnClick() {
@@ -165,19 +164,17 @@ function redBtnClick() {
         if (verify("red-btn")) {
             redSound.play()
             redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
-            setTimeout(redBtnRelease, 300)
+            setTimeout(btnRelease => {
+                redBtnEl.style.backgroundColor = "rgb(129, 37, 37)"
+            }, 500)
         } 
     } else {
         redSound.play()
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
-        setTimeout(redBtnRelease, 300)
+        setTimeout(btnRelease => {
+            redBtnEl.style.backgroundColor = "rgb(129, 37, 37)"
+        }, 500)
     }
-
-}
-
-function redBtnRelease() {
-    redBtnEl.style.backgroundColor = "rgb(129, 37, 37)"
-
 }
 
 function blueBtnClick() {
@@ -185,20 +182,17 @@ function blueBtnClick() {
         if (verify("blue-btn")) {
             blueSound.play()
             blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
-            setTimeout(blueBtnRelease, 300)
+            setTimeout(btnRelease => {
+                blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)"
+            }, 500)
         } 
     } else {
         blueSound.play()
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
-        setTimeout(blueBtnRelease, 300)
+        setTimeout(btnRelease => {
+            blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)"
+        }, 500)
     }
-
-
-}
-
-function blueBtnRelease() {
-    blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)"
-
 }
 
 function yellowBtnClick() {
@@ -206,23 +200,27 @@ function yellowBtnClick() {
         if (verify("yellow-btn")) {
             yellowSound.play()
             yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
-            setTimeout(yellowBtnRelease, 300)
+            setTimeout(btnRelease => {
+                yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
+            }, 500)
         }
     } else {
-        yellowSound.play()
         yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
-        setTimeout(yellowBtnRelease, 300)
+        setTimeout(btnRelease => {
+            yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
+        }, 500)
+        yellowSound.play()
     }
-
-}
-
-function yellowBtnRelease() {
-    yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
 }
 
 function verify(selectedButton) {
+    //check if is the user is in the final step of the sequence
     if (currentPlayerStep === simonPattern.length - 1) {
+
+        //check if the user's selection matches the step in the sequence
         if (selectedButton === simonPattern[currentPlayerStep]) {
+
+            //reset variables and call render to start the next sequence
             turn = 0
             currentPlayerStep = 0
             stepCount = 0
@@ -234,37 +232,45 @@ function verify(selectedButton) {
             return false
         }
     } else {
+        //-the user is currently in the middle of the sequence
+        //-check if the user's selection matches the step in simonPattern array in order
         if (selectedButton === simonPattern[currentPlayerStep]) {
             currentPlayerStep++
             return true
 
         } else {
-            lose()
+            lose(simonPattern[currentPlayerStep])
             return false
         }
 
     }
-
 }
 
 function lose(correctStep) {
     currentScore = simonPattern.length - 1
+    errorSound.play()
 
+    //show correct color in the sequence after losing
     if (correctStep==="green-btn") {
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
         setTimeout(greenBtnRelease, 300)
     } else if (correctStep==="red-btn") {
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
-        setTimeout(redBtnRelease, 300)
+        setTimeout(btnRelease => {
+            redBtnEl.style.backgroundColor = "rgb(129, 37, 37)"
+        }, 500)
 
     } else if (correctStep==="blue-btn") {
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
-        setTimeout(blueBtnRelease, 300)
+        setTimeout(btnRelease => {
+            blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)"
+        }, 500)
 
     } else if (correctStep==="yellow-btn") {
         yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
-        setTimeout(yellowBtnRelease, 300)
-
+        setTimeout(btnRelease => {
+            yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
+        }, 500)
     }
 
     if (currentScore > bestScore) {
@@ -273,13 +279,11 @@ function lose(correctStep) {
 
     bestScoreEl.innerText = bestScore
 
-    errorSound.play()
     init()
 }
 
 // Activate/deactivate night mode
 function modeToggle() {
-
     if (document.getElementById("switch").checked) {
         // night mode On
         document.getElementById("main-wrapper").style.background = "#000000"
@@ -290,8 +294,6 @@ function modeToggle() {
         document.getElementById("red-btn").style.borderColor = "#3c3c3c"
         document.getElementById("blue-btn").style.borderColor = "#3c3c3c"
         document.getElementById("yellow-btn").style.borderColor = "#3c3c3c"
-
-
 
     } else {
         // night mode Off

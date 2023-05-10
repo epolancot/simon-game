@@ -182,9 +182,8 @@ input[type=checkbox]{
     height: 0;
     width: 0;
     visibility: hidden;
-  }
-  
-  label {
+}
+label {
     cursor: pointer;
     text-indent: -9999px;
     width: 60px;
@@ -193,9 +192,8 @@ input[type=checkbox]{
     display: block;
     border-radius: 100px;
     position: relative;
-  }
-  
-  label:after {
+}
+label:after {
     content: '';
     position: absolute;
     top: 1px;
@@ -205,20 +203,17 @@ input[type=checkbox]{
     background: #ffffff;
     border-radius: 90px;
     transition: 0.3s;
-  }
-  
-  input:checked + label {
+}
+input:checked + label {
     background: #8e8e8e;
-  }
-  
-  input:checked + label:after {
+}
+input:checked + label:after {
     left: calc(100% - 5px);
     transform: translateX(-100%);
-  }
-  
-  label:active:after {
+}
+label:active:after {
     width: 130px;
-  }
+}
   /*  Toggle Switch End */
 
 
@@ -231,9 +226,7 @@ input[type=checkbox]{
         background: rgb(161, 189, 236);
         justify-content: center;
         border-radius: 50%;
-
-            
-    }
+}
 
     #buttons-container > div > button {
         width: 20vh;
