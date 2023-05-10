@@ -127,14 +127,6 @@ a {
 @media all and (orientation: landscape) {
     body {
         height: 175vh;
-        font-family: Helvetica;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 10% 89% 1%;
-        grid-template-areas:
-            "hdr"
-            "content"
-            "ftr"
     }
 
 
