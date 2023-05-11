@@ -1,5 +1,5 @@
 /*----- constants -----*/
-const options = {
+const buttons = {
     "1": "green-btn",
     "2": "red-btn",
     "3": "yellow-btn",
@@ -12,34 +12,34 @@ const emojis = {
     "3": "😮",
     "4": "😛",
     "5": "😎",
-    "6": "😈",
+    "6": "🤓",
     "7": "👻",
     "8": "🙌",
     "9": "🧑‍🚀",
     "10": "🥷",
     "11": "💪",
-    "12": "🤓"
+    "12": "🥳"
 }
+
+// game sounds variables using howler.js audio library. (https://github.com/goldfire/howler.js)
+// this library fixes Safari Desktop and iOS sound delay issue
+const greenSound = new Howl({src: ['../sounds/green.mp3'], html5: true}) //mp3 duration 0.41775
+const redSound = new Howl({src: ['../sounds/red.mp3'], html5: true}) //mp3 duration 0.418333
+const blueSound = new Howl({src: ['../sounds/blue.mp3'], html5: true}) //mp3 duration 0.5228
+const yellowSound = new Howl({src: ['../sounds/yellow.mp3'], html5: true}) //mp3 duration 0.5235
+const errorSound = new Howl({src: ['../sounds/error.mp3'], html5: true}) //mp3 duration 1.619594
 
 /*----- state variables -----*/
 let turn // keep track of who is currently playing. 0 = Simon : 1 = Player 
-let bestScore, currentScore // keep track of the scores
 let stepCount // used to count through the simonPattern array after invoking playSimonPattern()
 let currentPlayerStep // keep track of player's current step in the sequence (see verify ()) 
 let simonPattern = [] // holds Simon's steps sequence. Ex. ["green-btn", "blue-btn", "blue-btn"] 
-
-
-// game sounds variables using howler.js library. (https://github.com/goldfire/howler.js)
-// this library fixes Safari Desktop and iOS sound delay issue
-let greenSound = new Howl({src: ['../sounds/green.mp3'], html5: true}) //mp3 duration 0.41775
-let redSound = new Howl({src: ['../sounds/red.mp3'], html5: true}) //mp3 duration 0.418333
-let blueSound = new Howl({src: ['../sounds/blue.mp3'], html5: true}) //mp3 duration 0.5228
-let yellowSound = new Howl({src: ['../sounds/yellow.mp3'], html5: true}) //mp3 duration 0.5235
-let errorSound = new Howl({src: ['../sounds/error.mp3'], html5: true}) //mp3 duration 1.619594
+let currentScore
+let bestScore = 0 
 
 //time setting for setTimeouts()
 let releaseTime = 400 //controls the color change when player or simon clicks
-let simonPlayTime = 1700 //controls the amount of time between each step when Simon is playing simonPattern sequence
+let simonPlayTime = 1500 //controls the amount of time between each step when Simon is playing simonPattern sequence
 let correctColorTime = 550 //when the player loses, this controls the amount of time the correct step is displayed on screen
 let transitionTime = 1000 //when the player succesfully finish a sequence (used only once at verify())
 
@@ -74,11 +74,11 @@ function init() {
     stepCount = 0
     turn = 0
     currentPlayerStep = 0
-    bestScore = 0
 
     //Prepare center button caption
     centerBtnEl.style.fontFamily = "Helvetica"
     centerBtnEl.innerHTML = "Start"
+
 }
 
 function render() {
@@ -95,9 +95,9 @@ function addNewStep() {
     //To add a new step, first a random number between 1-4 is generated (representing one of the four buttons)
     const randomNumber = Math.floor(Math.random() * 4) + 1
 
-    //The random number is used as a key to find the correspoding button in the options object (see constants section)
+    //The random number is used as a key to find the correspoding button in the buttons object (see constants section)
     //to push said button's label into the simonPattern array.
-    simonPattern.push(options[randomNumber])
+    simonPattern.push(buttons[randomNumber])
 
     stepCount++
 
@@ -234,7 +234,7 @@ function yellowBtnClick() {
 }
 
 function verify(selectedButton) {
-    //check if is the user is in the final step of the sequence
+    //check if the user is in the final step of the sequence
     if (currentPlayerStep === simonPattern.length - 1) {
 
         //check if the user's selection matches the step in the sequence
@@ -298,7 +298,7 @@ function lose(correctStep) {
     if (currentScore > bestScore) {
         bestScore = currentScore
     }
-
+    
     bestScoreEl.innerText = bestScore
 
     init()
@@ -311,24 +311,32 @@ function setEmoji(level) {
         centerBtnEl.innerText = emojis["2"]
     } else if (level === 10) {
         centerBtnEl.innerText = emojis["3"]
+        centerBtnEl.style.backgroundColor = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 30%)"
+        simonPlayTime = 1300
     } else if (level < 12) {
         centerBtnEl.innerText = emojis["4"]
     } else if (level < 15) {
         centerBtnEl.innerText = emojis["5"]
     } else if (level === 15 ){
-        centerBtnEl.innerText = emojis["6"]      
-    } else if (level < 20) {
-        centerBtnEl.innerText = emojis["7"] 
+        centerBtnEl.innerText = emojis["6"]                         
+        centerBtnEl.style.backgroundColor = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 50%)"
+        simonPlayTime = 1000      
     } else if (level < 23) {
-        centerBtnEl.innerText = emojis["8"] 
+        centerBtnEl.innerText = emojis["7"] 
+    } else if (level === 23) {
+        centerBtnEl.innerText = emojis["8"]
+        centerBtnEl.style.backgroundColor = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 70%)"
+        simonPlayTime = 850   
     } else if (level < 26) {
         centerBtnEl.innerText = emojis["9"] 
     } else if (level < 30) {
         centerBtnEl.innerText = emojis["10"] 
     } else if (level < 35) {
         centerBtnEl.innerText = emojis["11"] 
+        centerBtnEl.style.backgroundColor = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 90%)"
     } else if (level === 35) {
         centerBtnEl.innerText = emojis["12"] 
+        centerBtnEl.style.backgroundColor = "rgb(9,185,92)"
     }
 }
 

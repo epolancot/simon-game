@@ -49,8 +49,8 @@ After the first functional implementation of this project, beta tester complaine
 - addNewStep() --> Generate random number, adds it to simonPattern array and calls playSimonPattern().
 - playSimonPattern() --> Reads through simonPattern array and calls the click function per step.
 - button functions
-  -setPlayBtnStatus--> Enable/Disable controls.
-  -click() functions for each color and center button.
+  - setPlayBtnStatus--> Enable/Disable controls.
+  - click() functions for each color and center button.
 - verify() --> Checks if the player's current click in the sequence is found in simonPattern array in the correct order.
 - lose() --> Sets the best score (if needed) and call the init() function to restart the game.
 - setEmoji() --> Displays an emoji from emojis' object depending on the current level.
@@ -60,7 +60,7 @@ After the first functional implementation of this project, beta tester complaine
 ---
 ### **_Resources_**
 - Howler.js: Audio library for cross-browser support. (https://github.com/goldfire/howler.js)
-- Google fonts: Orbitron (Header) and Squada One (Center button)
+- Google fonts: Orbitron (Header) and Squada One (Center button current score)
 
 ---
 ### **_Future Updates_**
