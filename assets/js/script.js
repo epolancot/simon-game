@@ -36,10 +36,10 @@ let yellowSound = new Audio('../sounds/yellow.mp3') //duration 0.5235
 let errorSound = new Audio('../sounds/error.mp3')   //duration 1.619594
 
 //time setting for setTimeouts()
-let releaseTime = 300 //controls the color change when player or simon clicks
-let simonPlayTime = 1700 //controls the amount of time between each step in when Simon is playing simonPattern sequence
+let releaseTime = 400 //controls the color change when player or simon clicks
+let simonPlayTime = 1700 //controls the amount of time between each step when Simon is playing simonPattern sequence
 let correctColorTime = 550 //when the player loses, this controls the amount of time the correct step is displayed on screen
-
+let transitionTime = 2000 //when the player succesfully finish a sequence (used only once at verify())
 
 
 /*----- cached elements  -----*/
@@ -122,18 +122,22 @@ function playSimonPattern() {
     if (stepCount <= simonPattern.length) {
         setPlayBtnStatus("disabled")
         if (simonPattern[index] === "green-btn") {
+            greenSound.load()
             greenBtnClick()
             setTimeout(playSimonPattern, simonPlayTime)
 
         } else if (simonPattern[index] === "red-btn") {
+            redSound.load()
             redBtnClick()
             setTimeout(playSimonPattern, simonPlayTime)
 
         } else if (simonPattern[index] === "yellow-btn") {
+            yellowSound.load()
             yellowBtnClick()
             setTimeout(playSimonPattern, simonPlayTime)
 
         } else if (simonPattern[index] === "blue-btn") {
+            blueSound.load()
             blueBtnClick()
             setTimeout(playSimonPattern, simonPlayTime)
         }
@@ -176,6 +180,7 @@ function greenBtnClick() {
     if (turn === 1) {
         //verify(selectedButton) returns true if argument matches simonPattern array in this step of the sequence
         if (verify("green-btn")) {
+            greenSound.load()
             greenSound.play()
             greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
             setTimeout(() => greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)", releaseTime)
@@ -185,11 +190,14 @@ function greenBtnClick() {
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
         setTimeout(() => greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)", releaseTime)
     }
+
+
 }
 
 function redBtnClick() {
     if (turn === 1) {
         if (verify("red-btn")) {
+            redSound.load()
             redSound.play()
             redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
             setTimeout(() => redBtnEl.style.backgroundColor = "rgb(129, 37, 37)", releaseTime)
@@ -199,11 +207,14 @@ function redBtnClick() {
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
         setTimeout(() => redBtnEl.style.backgroundColor = "rgb(129, 37, 37)", releaseTime)
     }
+
+
 }
 
 function blueBtnClick() {
     if (turn === 1) {
         if (verify("blue-btn")) {
+            blueSound.load()
             blueSound.play()
             blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
             setTimeout(() => blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)", releaseTime)
@@ -213,11 +224,13 @@ function blueBtnClick() {
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
         setTimeout(() => blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)", releaseTime)
     }
+
 }
 
 function yellowBtnClick() {
     if (turn === 1) {
         if (verify("yellow-btn")) {
+            yellowSound.load()
             yellowSound.play()
             yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
             setTimeout(() => yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)", releaseTime)
@@ -227,6 +240,7 @@ function yellowBtnClick() {
         yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
         setTimeout(() => yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)", releaseTime)
     }
+
 }
 
 function verify(selectedButton) {
@@ -240,7 +254,7 @@ function verify(selectedButton) {
             currentPlayerStep = 0
             stepCount = 0
             setEmoji(simonPattern.length)
-            setTimeout(render,2000)
+            setTimeout(render,transitionTime)
             return true
 
         } else {
