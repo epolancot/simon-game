@@ -33,7 +33,7 @@
 
 ![wireframe](/assets/imgs/wireframing.png)
 
-After the first functional implementation of this project, beta tester complained about confusing scores display. The Current Score now resides in the center of the controls, saving screen real estate and putting that DOM element to work full time.
+After the first fully functional implementation of this project, the scores display felt a little confusing. The Current Score now resides in the center of the controls, saving screen real estate and putting that DOM element to work full time.
 
 --- 
 

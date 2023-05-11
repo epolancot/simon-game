@@ -177,6 +177,11 @@ footer {
     margin-right: 15px;
 }
 
+#chat {
+    font-size: larger;
+    
+}
+
 /* Toggle Switch - based on Marcus Burnette's via www.alvarotrigo.com */
 input[type=checkbox]{
     height: 0;

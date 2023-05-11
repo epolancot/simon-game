@@ -41,12 +41,12 @@ let bestScore = 0
 let releaseTime = 400 //controls the color change when player or simon clicks
 let simonPlayTime = 1500 //controls the amount of time between each step when Simon is playing simonPattern sequence
 let correctColorTime = 550 //when the player loses, this controls the amount of time the correct step is displayed on screen
-let transitionTime = 1000 //when the player succesfully finish a sequence (used only once at verify())
+let transitionTime = 1500 //when the player succesfully finish a sequence (used only once at verify())
 
 
 /*----- cached elements  -----*/
-const scoresContainerEl = document.getElementById("scores-container")
-const bestScoreEl = document.getElementById("best-score")
+const scoreContainerEl = document.getElementById("score-container")
+const scoreTextEl = document.getElementById("score-text")
 const greenBtnEl = document.getElementById("green-btn")
 const redBtnEl = document.getElementById("red-btn")
 const yellowBtnEl = document.getElementById("yellow-btn")
@@ -79,6 +79,12 @@ function init() {
     centerBtnEl.style.fontFamily = "Helvetica"
     centerBtnEl.innerHTML = "Start"
 
+    scoreContainerEl.innerHTML = `<div id='score-text'>Best:</div><div id='best-score'>${bestScore}</div>`
+    centerBtnEl.style.backgroundColor = "rbg(0,0,0)"
+    // scoreContainerEl.style.display = "flex"
+    // scoreContainerEl.innerHTML = "<div id='chat'>Elon Musk has joined the chat</div>"
+
+
 }
 
 function render() {
@@ -87,7 +93,9 @@ function render() {
 }
 
 function renderBestScore() {
-    bestScoreEl.innerText = bestScore
+    scoreContainerEl.style.display = "grid"
+    scoreContainerEl.innerHTML = `<div id='score-text'>Best:</div><div id='best-score'>${bestScore}</div>`
+    centerBtnEl.style.backgroundColor = "rbg(0,0,0)"
 }
 
 function addNewStep() {
@@ -136,11 +144,17 @@ function playSimonPattern() {
             setTimeout(playSimonPattern, simonPlayTime)
         }
 
+        centerBtnEl.style.fontFamily = "Squada One"
+        centerBtnEl.innerText = "SIMON"
+
         stepCount++
 
     } else {
         turn = 1
         setPlayBtnStatus("enabled")
+        centerBtnEl.style.fontFamily = "Orbitron"
+        centerBtnEl.innerText = simonPattern.length
+
 
     }
 
@@ -298,8 +312,6 @@ function lose(correctStep) {
     if (currentScore > bestScore) {
         bestScore = currentScore
     }
-    
-    bestScoreEl.innerText = bestScore
 
     init()
 }
@@ -311,7 +323,7 @@ function setEmoji(level) {
         centerBtnEl.innerText = emojis["2"]
     } else if (level === 10) {
         centerBtnEl.innerText = emojis["3"]
-        centerBtnEl.style.backgroundColor = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 30%)"
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 30%)"
         simonPlayTime = 1300
     } else if (level < 12) {
         centerBtnEl.innerText = emojis["4"]
@@ -319,13 +331,17 @@ function setEmoji(level) {
         centerBtnEl.innerText = emojis["5"]
     } else if (level === 15 ){
         centerBtnEl.innerText = emojis["6"]                         
-        centerBtnEl.style.backgroundColor = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 50%)"
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 50%)"
+        scoreContainerEl.style.display = "flex"
+        scoreContainerEl.innerHTML = "<div id='chat'>Amazing!</div>"
         simonPlayTime = 1000      
     } else if (level < 23) {
         centerBtnEl.innerText = emojis["7"] 
     } else if (level === 23) {
         centerBtnEl.innerText = emojis["8"]
-        centerBtnEl.style.backgroundColor = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 70%)"
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 70%)"
+        scoreContainerEl.style.display = "flex"
+        scoreContainerEl.innerHTML = "<div id='chat'>Elon Musk has joined the chat</div>"
         simonPlayTime = 850   
     } else if (level < 26) {
         centerBtnEl.innerText = emojis["9"] 
@@ -333,10 +349,12 @@ function setEmoji(level) {
         centerBtnEl.innerText = emojis["10"] 
     } else if (level < 35) {
         centerBtnEl.innerText = emojis["11"] 
-        centerBtnEl.style.backgroundColor = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 90%)"
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 90%)"
     } else if (level === 35) {
         centerBtnEl.innerText = emojis["12"] 
         centerBtnEl.style.backgroundColor = "rgb(9,185,92)"
+        scoreContainerEl.style.display = "flex"
+        scoreContainerEl.innerHTML = "<div id='chat'>I'm out</div>"
     }
 }
 
