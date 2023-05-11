@@ -28,18 +28,20 @@ let stepCount // used to count through the simonPattern array after invoking pla
 let currentPlayerStep // keep track of player's current step in the sequence (see verify ()) 
 let simonPattern = [] // holds Simon's steps sequence. Ex. ["green-btn", "blue-btn", "blue-btn"] 
 
-// game sounds variables
-let greenSound = new Audio('../sounds/green.mp3')   //duration 0.41775
-let redSound = new Audio('../sounds/red.mp3')       //duration 0.418333
-let blueSound = new Audio('../sounds/blue.mp3')     //duration 0.5228
-let yellowSound = new Audio('../sounds/yellow.mp3') //duration 0.5235
-let errorSound = new Audio('../sounds/error.mp3')   //duration 1.619594
+
+// game sounds variables using howler.js library. (https://github.com/goldfire/howler.js)
+// this library fixes Safari Desktop and iOS sound delay issue
+let greenSound = new Howl({src: ['../sounds/green.mp3'], html5: true}) //mp3 duration 0.41775
+let redSound = new Howl({src: ['../sounds/red.mp3'], html5: true}) //mp3 duration 0.418333
+let blueSound = new Howl({src: ['../sounds/blue.mp3'], html5: true}) //mp3 duration 0.5228
+let yellowSound = new Howl({src: ['../sounds/yellow.mp3'], html5: true}) //mp3 duration 0.5235
+let errorSound = new Howl({src: ['../sounds/error.mp3'], html5: true}) //mp3 duration 1.619594
 
 //time setting for setTimeouts()
 let releaseTime = 400 //controls the color change when player or simon clicks
 let simonPlayTime = 1700 //controls the amount of time between each step when Simon is playing simonPattern sequence
 let correctColorTime = 550 //when the player loses, this controls the amount of time the correct step is displayed on screen
-let transitionTime = 2000 //when the player succesfully finish a sequence (used only once at verify())
+let transitionTime = 1000 //when the player succesfully finish a sequence (used only once at verify())
 
 
 /*----- cached elements  -----*/
@@ -51,8 +53,6 @@ const yellowBtnEl = document.getElementById("yellow-btn")
 const blueBtnEl = document.getElementById("blue-btn")
 const centerBtnEl = document.getElementById("center-btn")
 
-
-
 /*----- event listeners -----*/
 document.getElementById("center-btn").addEventListener("click", centerBtnClick)
 document.getElementById("green-btn").addEventListener("click", greenBtnClick)
@@ -60,8 +60,6 @@ document.getElementById("red-btn").addEventListener("click", redBtnClick)
 document.getElementById("yellow-btn").addEventListener("click", yellowBtnClick)
 document.getElementById("blue-btn").addEventListener("click", blueBtnClick)
 document.getElementById("switch").addEventListener("click", modeToggle)
-
-
 
 /*----- functions -----*/
 init();
@@ -122,22 +120,18 @@ function playSimonPattern() {
     if (stepCount <= simonPattern.length) {
         setPlayBtnStatus("disabled")
         if (simonPattern[index] === "green-btn") {
-            greenSound.load()
             greenBtnClick()
             setTimeout(playSimonPattern, simonPlayTime)
 
         } else if (simonPattern[index] === "red-btn") {
-            redSound.load()
             redBtnClick()
             setTimeout(playSimonPattern, simonPlayTime)
 
         } else if (simonPattern[index] === "yellow-btn") {
-            yellowSound.load()
             yellowBtnClick()
             setTimeout(playSimonPattern, simonPlayTime)
 
         } else if (simonPattern[index] === "blue-btn") {
-            blueSound.load()
             blueBtnClick()
             setTimeout(playSimonPattern, simonPlayTime)
         }
@@ -180,7 +174,6 @@ function greenBtnClick() {
     if (turn === 1) {
         //verify(selectedButton) returns true if argument matches simonPattern array in this step of the sequence
         if (verify("green-btn")) {
-            greenSound.load()
             greenSound.play()
             greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
             setTimeout(() => greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)", releaseTime)
@@ -197,7 +190,6 @@ function greenBtnClick() {
 function redBtnClick() {
     if (turn === 1) {
         if (verify("red-btn")) {
-            redSound.load()
             redSound.play()
             redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
             setTimeout(() => redBtnEl.style.backgroundColor = "rgb(129, 37, 37)", releaseTime)
@@ -214,7 +206,6 @@ function redBtnClick() {
 function blueBtnClick() {
     if (turn === 1) {
         if (verify("blue-btn")) {
-            blueSound.load()
             blueSound.play()
             blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
             setTimeout(() => blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)", releaseTime)
@@ -230,7 +221,6 @@ function blueBtnClick() {
 function yellowBtnClick() {
     if (turn === 1) {
         if (verify("yellow-btn")) {
-            yellowSound.load()
             yellowSound.play()
             yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
             setTimeout(() => yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)", releaseTime)
@@ -367,3 +357,4 @@ function modeToggle() {
         document.getElementById("yellow-btn").style.borderColor = "#000000"
     }
 }
+

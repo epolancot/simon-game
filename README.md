@@ -56,10 +56,13 @@ After the first functional implementation of this project, beta tester complaine
 - setEmoji() --> Displays an emoji from emojis' object depending on the current level.
 - modeToggle() --> Updates DOM elements depending if dark mode is selected or not.
 
+### The project itself was deployed and can be viewed [here](http://simongame-ga.surge.com)
+---
+### **_Resources_**
+- Howler.js: Audio library for cross-browser support. (https://github.com/goldfire/howler.js)
+- Google fonts: Orbitron (Header) and Squada One (Center button)
 
 ---
-
 ### **_Future Updates_**
-- Improve timing in Safari
 - Improve difficulty in advanced levels
 
