@@ -42,7 +42,7 @@ After the first fully functional implementation of this project, the scores disp
 #### **In the beginning the buttons were sad... and misplaced! :(**
 ![Sad buttons](/assets/imgs/readme-imgs/game-intro-basic-buttons.png)
 
-#### With some CSS' border-radius love they are now full of joy, waiting for avid players to try their best to beat Simon. 
+With some CSS' border-radius love they are now full of joy, waiting for avid players to try their best to beat Simon. 
 
 #### **Use of CSS gradient to accent level progression**
 ![Levels](/assets/imgs/readme-imgs/levels.png)
@@ -68,7 +68,7 @@ After the first fully functional implementation of this project, the scores disp
 #### **Dark mode is available through a simple toggle switch (so fancy!)**
 ![Emojis](/assets/imgs/readme-imgs/toggle-switch.png)
 
-### The project itself was deployed and can be viewed [here](http://simongame-ga.surge.com)
+### The project itself was deployed and can be viewed [here](http://simongame-ga.surge.sh)
 ---
 
 #### **File tree**
@@ -87,3 +87,4 @@ After the first fully functional implementation of this project, the scores disp
 - Improve difficulty in advanced levels
 - Add repeat Simon's pattern button
 
+---
