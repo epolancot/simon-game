@@ -21,8 +21,8 @@ const emojis = {
     "12": "🥳"
 }
 
-// game sounds variables using howler.js audio library. (https://github.com/goldfire/howler.js)
-// this library fixes Safari Desktop and iOS sound delay issue
+// Game sounds variables using howler.js audio library. (https://github.com/goldfire/howler.js)
+// This library fixes Safari Desktop and iOS sound delay issue
 const greenSound = new Howl({src: ['../sounds/green.mp3'], html5: true}) //mp3 duration 0.41775
 const redSound = new Howl({src: ['../sounds/red.mp3'], html5: true}) //mp3 duration 0.418333
 const blueSound = new Howl({src: ['../sounds/blue.mp3'], html5: true}) //mp3 duration 0.5228
@@ -30,19 +30,18 @@ const yellowSound = new Howl({src: ['../sounds/yellow.mp3'], html5: true}) //mp3
 const errorSound = new Howl({src: ['../sounds/error.mp3'], html5: true}) //mp3 duration 1.619594
 
 /*----- state variables -----*/
-let turn // keep track of who is currently playing. 0 = Simon : 1 = Player 
-let stepCount // used to count through the simonPattern array after invoking playSimonPattern()
-let currentPlayerStep // keep track of player's current step in the sequence (see verify ()) 
-let simonPattern = [] // holds Simon's steps sequence. Ex. ["green-btn", "blue-btn", "blue-btn"] 
+let turn // Keep track of who is currently playing. 0 = Simon : 1 = Player 
+let stepCount // Used to count through the simonPattern array after invoking playSimonPattern()
+let currentPlayerStep // Keep track of player's current step in the sequence (see verify ()) 
+let simonPattern = [] // Holds Simon's steps sequence. Ex. ["green-btn", "blue-btn", "blue-btn"] 
 let currentScore
 let bestScore = 0 
 
-//time setting for setTimeouts()
-let releaseTime = 400 //controls the color change when player or simon clicks
-let simonPlayTime = 1500 //controls the amount of time between each step when Simon is playing simonPattern sequence
-let correctColorTime = 550 //when the player loses, this controls the amount of time the correct step is displayed on screen
-let transitionTime = 1500 //when the player succesfully finish a sequence (used only once at verify())
-
+// Time setting for setTimeouts()
+let releaseTime = 400 // Controls the color change when the player or Simon clicks().
+let simonPlayTime = 1500 // Controls the amount of time between each step when Simon is playing simonPattern sequence.
+let correctColorTime = 550 // When the player loses, this controls the amount of time the correct step is displayed on screen.
+let transitionTime = 1500 // When the player succesfully finish a sequence, this is the transition time to switch the turn to Simon (used only once at verify()).
 
 /*----- cached elements  -----*/
 const scoreContainerEl = document.getElementById("score-container")
@@ -65,26 +64,22 @@ document.getElementById("switch").addEventListener("click", modeToggle)
 init();
 
 function init() {
-    //Disable play buttons. Enable Start button
+    // Disable play buttons. Enable Start button.
     setPlayBtnStatus("disabled")
 
-    //Initialize variables
+    // Initialize variables.
     simonPattern = []
     currentScore = 0
     stepCount = 0
     turn = 0
     currentPlayerStep = 0
 
-    //Prepare center button caption
+    // Prepare center button caption.
     centerBtnEl.style.fontFamily = "Helvetica"
     centerBtnEl.innerHTML = "Start"
 
     scoreContainerEl.innerHTML = `<div id='score-text'>Best:</div><div id='best-score'>${bestScore}</div>`
     centerBtnEl.style.backgroundColor = "rbg(0,0,0)"
-    // scoreContainerEl.style.display = "flex"
-    // scoreContainerEl.innerHTML = "<div id='chat'>Elon Musk has joined the chat</div>"
-
-
 }
 
 function render() {
@@ -95,16 +90,16 @@ function render() {
 function renderBestScore() {
     scoreContainerEl.style.display = "grid"
     scoreContainerEl.innerHTML = `<div id='score-text'>Best:</div><div id='best-score'>${bestScore}</div>`
-    centerBtnEl.style.backgroundColor = "rbg(0,0,0)"
+    centerBtnEl.style.backgroundColor = "rgb(0,0,0)"
 }
 
 function addNewStep() {
-    //Simon's pattern is generated as the game is played by adding a step to simonPattern array each cycle.
-    //To add a new step, first a random number between 1-4 is generated (representing one of the four buttons)
+    // Simon's pattern is generated as the game is played by adding one step to simonPattern array each cycle.
+    // To add a new step, first a random number between 1-4 is generated (representing one of the four buttons).
     const randomNumber = Math.floor(Math.random() * 4) + 1
 
-    //The random number is used as a key to find the correspoding button in the buttons object (see constants section)
-    //to push said button's label into the simonPattern array.
+    // The random number is used as a key to find the correspoding button in the buttons object (see constants section)
+    // to push said button's label into the simonPattern array.
     simonPattern.push(buttons[randomNumber])
 
     stepCount++
@@ -118,13 +113,12 @@ function addNewStep() {
     }
 
     playSimonPattern()
-
 }
 
 function playSimonPattern() {
-
     let index = stepCount - 1
 
+    // This function plays simonPattern array sequence
     if (stepCount <= simonPattern.length) {
         setPlayBtnStatus("disabled")
         if (simonPattern[index] === "green-btn") {
@@ -154,15 +148,10 @@ function playSimonPattern() {
         setPlayBtnStatus("enabled")
         centerBtnEl.style.fontFamily = "Orbitron"
         centerBtnEl.innerText = simonPattern.length
-
-
     }
-
-
 }
 
 function setPlayBtnStatus(status) {
-    //Enables/Disables play buttons or center button as needed 
     if (status === "enabled"){
         greenBtnEl.disabled = false
         redBtnEl.disabled = false
@@ -197,8 +186,6 @@ function greenBtnClick() {
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
         setTimeout(() => greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)", releaseTime)
     }
-
-
 }
 
 function redBtnClick() {
@@ -213,8 +200,6 @@ function redBtnClick() {
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
         setTimeout(() => redBtnEl.style.backgroundColor = "rgb(129, 37, 37)", releaseTime)
     }
-
-
 }
 
 function blueBtnClick() {
@@ -229,7 +214,6 @@ function blueBtnClick() {
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
         setTimeout(() => blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)", releaseTime)
     }
-
 }
 
 function yellowBtnClick() {
@@ -244,13 +228,11 @@ function yellowBtnClick() {
         yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
         setTimeout(() => yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)", releaseTime)
     }
-
 }
 
 function verify(selectedButton) {
     //check if the user is in the final step of the sequence
     if (currentPlayerStep === simonPattern.length - 1) {
-
         //check if the user's selection matches the step in the sequence
         if (selectedButton === simonPattern[currentPlayerStep]) {
             //reset variables, set Emoji and call render to start the next sequence
@@ -260,7 +242,6 @@ function verify(selectedButton) {
             setEmoji(simonPattern.length)
             setTimeout(render,transitionTime)
             return true
-
         } else {
             lose(simonPattern[currentPlayerStep])
             return false
@@ -271,19 +252,16 @@ function verify(selectedButton) {
         if (selectedButton === simonPattern[currentPlayerStep]) {
             currentPlayerStep++
             return true
-
         } else {
             lose(simonPattern[currentPlayerStep])
             return false
         }
-
     }
 }
 
 function lose(correctStep) {
     currentScore = simonPattern.length - 1
     errorSound.play()
-
     //show correct color in the sequence after losing
     if (correctStep==="green-btn") {
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
@@ -295,24 +273,20 @@ function lose(correctStep) {
         setTimeout(btnRelease => {
             redBtnEl.style.backgroundColor = "rgb(129, 37, 37)"
         }, correctColorTime)
-
     } else if (correctStep==="blue-btn") {
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
         setTimeout(btnRelease => {
             blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)"
         }, correctColorTime)
-
     } else if (correctStep==="yellow-btn") {
         yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
         setTimeout(btnRelease => {
             yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
         }, correctColorTime)
     }
-
     if (currentScore > bestScore) {
         bestScore = currentScore
     }
-
     init()
 }
 
@@ -370,7 +344,6 @@ function modeToggle() {
         document.getElementById("red-btn").style.borderColor = "#3c3c3c"
         document.getElementById("blue-btn").style.borderColor = "#3c3c3c"
         document.getElementById("yellow-btn").style.borderColor = "#3c3c3c"
-
     } else {
         // night mode Off
         document.getElementById("main-wrapper").style.background = "#ffffff"

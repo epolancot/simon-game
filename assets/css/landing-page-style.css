@@ -31,7 +31,6 @@ header {
     background: rgb(40,40,43);
     background: linear-gradient(180deg, rgba(40,40,43,1) 0%, rgba(40,40,43,1) 97%, rgba(255,255,255,1) 100%);
     color: darkgray;
-
 }
 
 main {
@@ -39,16 +38,13 @@ main {
     display: row;
     justify-content: center;
     background-color: #ffffff;
-
 }
 
 a {
     text-decoration: none;
 }
 
-
 footer {
-
     grid-area: ftr;
     background: linear-gradient(to right,
     rgb(6, 111, 15) 0%,
@@ -75,7 +71,6 @@ footer {
     margin: 0 auto;
     font-family: Verdana;
     font-size: 3.5vmin;
-
 }
 
 #play-button {
@@ -115,21 +110,8 @@ footer {
     width: 23vmin;
 }
 
-/* @media all and (orientation: landscape) {
-    body {
-        height: 175vh;
-    }
-
-
-  } */
-
-@media all and (max-width:576px){     
-
-}
-
 @media all and (max-width:280px){   
     #robot > img {
         visibility: hidden;
     }  
-
 } 

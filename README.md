@@ -60,9 +60,12 @@ After the first fully functional implementation of this project, the scores disp
 ---
 ### **_Resources_**
 - Howler.js: Audio library for cross-browser support. (https://github.com/goldfire/howler.js)
+- CSS/HTML Night mode Toggle Switch - based on Marcus Burnette's via www.alvarotrigo.com
 - Google fonts: Orbitron (Header) and Squada One (Center button current score)
+
 
 ---
 ### **_Future Updates_**
 - Improve difficulty in advanced levels
+- Add repeat Simon's pattern button
 

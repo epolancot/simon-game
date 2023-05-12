@@ -20,7 +20,6 @@ h1 {
     font-family: 'Squada One', sans-serif, cursive;
     color: white;
     font-size: 8vh;
-
     
 }
 
@@ -32,7 +31,6 @@ header {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-
 }
 
 footer {
@@ -80,7 +78,6 @@ footer {
     border-radius: 5%;
     font-size: 5vmin;
     padding: 8px;
-
 }
 
 #best-score {
@@ -89,15 +86,13 @@ footer {
 }
 
 #buttons-container {
-        display: grid;
-        grid-template-columns: repeat(2, 26vh);
-        grid-template-rows: repeat(2, 26vh);
-        margin-top: 5vmin;
-        background: rgb(161, 189, 236);
-        justify-content: center;
-        border-radius: 50%;
-
-        
+    display: grid;
+    grid-template-columns: repeat(2, 26vh);
+    grid-template-rows: repeat(2, 26vh);
+    margin-top: 5vmin;
+    background: rgb(161, 189, 236);
+    justify-content: center;
+    border-radius: 50%;        
 }
 
 #buttons-container > div > button {
@@ -127,7 +122,6 @@ footer {
     border-bottom-width: 3px; 
     border-top-style: solid;
     border-right-style: solid;
-
 }
 
 #blue-btn {
@@ -137,7 +131,6 @@ footer {
     border-bottom-width: 5px;
     border-right-style: solid;
     border-bottom-style: solid;
-
 }
 
 #yellow-btn {
@@ -148,7 +141,6 @@ footer {
     border-right-width: 3px;
     border-left-style: solid;
     border-bottom-style: solid;
-
 }
 
 #center-btn {
@@ -178,8 +170,7 @@ footer {
 }
 
 #chat {
-    font-size: larger;
-    
+    font-size: larger;    
 }
 
 /* Toggle Switch - based on Marcus Burnette's via www.alvarotrigo.com */
@@ -231,7 +222,7 @@ label:active:after {
         background: rgb(161, 189, 236);
         justify-content: center;
         border-radius: 50%;
-}
+    }
 
     #buttons-container > div > button {
         width: 20vh;
@@ -244,7 +235,6 @@ label:active:after {
         margin-top: -29vh;
         margin-left: 11vh;
         font-size: 4vh;
-
     }
     
 }
