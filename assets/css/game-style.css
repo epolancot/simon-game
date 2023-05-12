@@ -111,7 +111,6 @@ footer {
     border-bottom-width: 3px;
     border-top-style: solid;
     border-left-style: solid;
-
 }
 
 #red-btn {
@@ -168,9 +167,9 @@ footer {
 #mode > input, label {
     margin-right: 15px;
 }
-
+/* Dinamically created via JS function setEmoji() */
 #chat {
-    font-size: larger;    
+    font-size: medium;    
 }
 
 /* Toggle Switch - based on Marcus Burnette's via www.alvarotrigo.com */

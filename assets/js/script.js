@@ -9,7 +9,7 @@ const buttons = {
 const emojis = {
     "1": "👍",
     "2": "🤌",
-    "3": "😮",
+    "3": "🤯",
     "4": "😛",
     "5": "😎",
     "6": "🤓",
@@ -39,9 +39,11 @@ let bestScore = 0
 
 // Time setting for setTimeouts()
 let releaseTime = 400 // Controls the color change when the player or Simon clicks().
-let simonPlayTime = 1500 // Controls the amount of time between each step when Simon is playing simonPattern sequence.
+let simonPlayTime // Controls the amount of time between each step when Simon is playing simonPattern sequence.
+let simonPlayTimeDefaultVal = 1300 // Variable simonPlayTime varies during the game (see playSimonPattern()). This default value allows to revert it dinamically.
 let correctColorTime = 550 // When the player loses, this controls the amount of time the correct step is displayed on screen.
-let transitionTime = 1500 // When the player succesfully finish a sequence, this is the transition time to switch the turn to Simon (used only once at verify()).
+let transitionTime = 1200 // Time between the end of a player's succesfull sequence and Simon's turn. Emojis and Msgs are displayed during this.
+let simonSeqEnd = 400 // Time between the end of Simon's sequence and the player's turn
 
 /*----- cached elements  -----*/
 const scoreContainerEl = document.getElementById("score-container")
@@ -66,20 +68,17 @@ init();
 function init() {
     // Disable play buttons. Enable Start button.
     setPlayBtnStatus("disabled")
-
     // Initialize variables.
     simonPattern = []
     currentScore = 0
     stepCount = 0
     turn = 0
     currentPlayerStep = 0
-
     // Prepare center button caption.
     centerBtnEl.style.fontFamily = "Helvetica"
-    centerBtnEl.innerHTML = "Start"
-
+    centerBtnEl.innerHTML = "Start"  
+    // Set the best score display
     scoreContainerEl.innerHTML = `<div id='score-text'>Best:</div><div id='best-score'>${bestScore}</div>`
-    centerBtnEl.style.backgroundColor = "rbg(0,0,0)"
 }
 
 function render() {
@@ -90,20 +89,16 @@ function render() {
 function renderBestScore() {
     scoreContainerEl.style.display = "grid"
     scoreContainerEl.innerHTML = `<div id='score-text'>Best:</div><div id='best-score'>${bestScore}</div>`
-    centerBtnEl.style.backgroundColor = "rgb(0,0,0)"
 }
 
 function addNewStep() {
     // Simon's pattern is generated as the game is played by adding one step to simonPattern array each cycle.
     // To add a new step, first a random number between 1-4 is generated (representing one of the four buttons).
     const randomNumber = Math.floor(Math.random() * 4) + 1
-
     // The random number is used as a key to find the correspoding button in the buttons object (see constants section)
     // to push said button's label into the simonPattern array.
     simonPattern.push(buttons[randomNumber])
-
     stepCount++
-
     if (simonPattern.length > 1) {
         centerBtnEl.style.fontFamily = "Orbitron"
         centerBtnEl.innerText = simonPattern.length
@@ -111,39 +106,36 @@ function addNewStep() {
         centerBtnEl.style.fontFamily = "Helvetica"
         centerBtnEl.innerText = "Your turn!"
     }
-
     playSimonPattern()
 }
 
 function playSimonPattern() {
     let index = stepCount - 1
-
     // This function plays simonPattern array sequence
     if (stepCount <= simonPattern.length) {
         setPlayBtnStatus("disabled")
         if (simonPattern[index] === "green-btn") {
             greenBtnClick()
+            if (stepCount === simonPattern.length) {simonPlayTime=simonSeqEnd}
             setTimeout(playSimonPattern, simonPlayTime)
-
         } else if (simonPattern[index] === "red-btn") {
             redBtnClick()
+            if (stepCount === simonPattern.length) {simonPlayTime=simonSeqEnd}
             setTimeout(playSimonPattern, simonPlayTime)
-
         } else if (simonPattern[index] === "yellow-btn") {
             yellowBtnClick()
+            if (stepCount === simonPattern.length) {simonPlayTime=simonSeqEnd}
             setTimeout(playSimonPattern, simonPlayTime)
-
         } else if (simonPattern[index] === "blue-btn") {
             blueBtnClick()
+            if (stepCount === simonPattern.length) {simonPlayTime=simonSeqEnd}
             setTimeout(playSimonPattern, simonPlayTime)
         }
-
         centerBtnEl.style.fontFamily = "Squada One"
         centerBtnEl.innerText = "SIMON"
-
         stepCount++
-
     } else {
+        simonPlayTime=simonPlayTimeDefaultVal
         turn = 1
         setPlayBtnStatus("enabled")
         centerBtnEl.style.fontFamily = "Orbitron"
@@ -157,8 +149,7 @@ function setPlayBtnStatus(status) {
         redBtnEl.disabled = false
         blueBtnEl.disabled = false
         yellowBtnEl.disabled = false
-        centerBtnEl.disabled = true
-    
+        centerBtnEl.disabled = true    
     } else if (status === "disabled") {
         greenBtnEl.disabled = true
         redBtnEl.disabled = true
@@ -231,11 +222,11 @@ function yellowBtnClick() {
 }
 
 function verify(selectedButton) {
-    //check if the user is in the final step of the sequence
+    // Check if the user is in the final step of the sequence.
     if (currentPlayerStep === simonPattern.length - 1) {
-        //check if the user's selection matches the step in the sequence
+        // Check if the user's selection matches the step in the sequence.
         if (selectedButton === simonPattern[currentPlayerStep]) {
-            //reset variables, set Emoji and call render to start the next sequence
+            // Reset variables, set Emoji and call render to start the next sequence.
             turn = 0
             currentPlayerStep = 0
             stepCount = 0
@@ -247,8 +238,8 @@ function verify(selectedButton) {
             return false
         }
     } else {
-        //-the user is currently in the middle of the sequence
-        //-check if the user's selection matches the step in simonPattern array in order
+        // The user is currently in the middle of the sequence.
+        // Check if the user's selection matches the step in simonPattern array in order.
         if (selectedButton === simonPattern[currentPlayerStep]) {
             currentPlayerStep++
             return true
@@ -262,7 +253,8 @@ function verify(selectedButton) {
 function lose(correctStep) {
     currentScore = simonPattern.length - 1
     errorSound.play()
-    //show correct color in the sequence after losing
+    centerBtnEl.style.background = "rgb(0, 0, 0)"
+    // Show correct color in the sequence after losing.
     if (correctStep==="green-btn") {
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
         setTimeout(btnRelease => {
@@ -295,38 +287,43 @@ function setEmoji(level) {
         centerBtnEl.innerText = emojis["1"]
     } else if (level < 10) {
         centerBtnEl.innerText = emojis["2"]
+        simonPlayTimeDefaultVal = 1100
     } else if (level === 10) {
         centerBtnEl.innerText = emojis["3"]
-        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 30%)"
-        simonPlayTime = 1300
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 20%)"
+        simonPlayTimeDefaultVal = 1000
     } else if (level < 12) {
         centerBtnEl.innerText = emojis["4"]
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 30%)"
     } else if (level < 15) {
         centerBtnEl.innerText = emojis["5"]
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 40%)"
     } else if (level === 15 ){
         centerBtnEl.innerText = emojis["6"]                         
         centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 50%)"
         scoreContainerEl.style.display = "flex"
         scoreContainerEl.innerHTML = "<div id='chat'>Amazing!</div>"
-        simonPlayTime = 1000      
+        simonPlayTimeDefaultVal = 850      
     } else if (level < 23) {
-        centerBtnEl.innerText = emojis["7"] 
+        centerBtnEl.innerText = emojis["7"]
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 60%)" 
     } else if (level === 23) {
         centerBtnEl.innerText = emojis["8"]
         centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 70%)"
         scoreContainerEl.style.display = "flex"
         scoreContainerEl.innerHTML = "<div id='chat'>Elon Musk has joined the chat</div>"
-        simonPlayTime = 850   
+        simonPlayTimeDefaultVal = 700   
     } else if (level < 26) {
         centerBtnEl.innerText = emojis["9"] 
     } else if (level < 30) {
-        centerBtnEl.innerText = emojis["10"] 
+        centerBtnEl.innerText = emojis["10"]
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 80%)" 
     } else if (level < 35) {
         centerBtnEl.innerText = emojis["11"] 
         centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 90%)"
     } else if (level === 35) {
         centerBtnEl.innerText = emojis["12"] 
-        centerBtnEl.style.backgroundColor = "rgb(9,185,92)"
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 100%)"
         scoreContainerEl.style.display = "flex"
         scoreContainerEl.innerHTML = "<div id='chat'>I'm out</div>"
     }
@@ -335,7 +332,7 @@ function setEmoji(level) {
 // Activate/deactivate night mode
 function modeToggle() {
     if (document.getElementById("switch").checked) {
-        // night mode On
+        // Night mode On
         document.getElementById("main-wrapper").style.background = "#000000"
         document.getElementById("score-container").style.background = "#000000"
         document.getElementById("score-container").style.color = "#ffffff"
@@ -345,7 +342,7 @@ function modeToggle() {
         document.getElementById("blue-btn").style.borderColor = "#3c3c3c"
         document.getElementById("yellow-btn").style.borderColor = "#3c3c3c"
     } else {
-        // night mode Off
+        // Night mode Off
         document.getElementById("main-wrapper").style.background = "#ffffff"
         document.getElementById("score-container").style.background = "#ffffff"
         document.getElementById("score-container").style.color = "#000000"
