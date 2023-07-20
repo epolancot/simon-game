@@ -77,7 +77,8 @@ function init() {
     currentPlayerStep = 0
     // Prepare center button caption.
     centerBtnEl.style.fontFamily = "Helvetica"
-    centerBtnEl.innerHTML = "Start"  
+    centerBtnEl.innerHTML = "Start"
+    repeatPatternBtnEl.style.visibility = "hidden"  
     // Set the best score display
     scoreContainerEl.innerHTML = `<div id='score-text'>Best:</div><div id='best-score'>${bestScore}</div>`
 }
@@ -134,6 +135,7 @@ function playSimonPattern() {
         }
         centerBtnEl.style.fontFamily = "Squada One"
         centerBtnEl.innerText = "SIMON"
+        repeatPatternBtnEl.style.visibility = "visible"
         stepCount++
     } else {
         simonPlayTime=simonPlayTimeDefaultVal
