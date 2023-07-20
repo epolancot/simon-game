@@ -156,6 +156,18 @@ footer {
     border-style: solid;
 }
 
+#repeat-pattern-btn {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    position: absolute;
+    margin-top: -22vh;
+    margin-left: 24vh;
+    border-radius: 50%;
+    border-style: none;
+    color:white;
+}
+
 #mode {
     margin-top: 5px;
     display: flex;

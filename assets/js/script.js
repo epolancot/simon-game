@@ -40,7 +40,7 @@ let bestScore = 0
 // Time setting for setTimeouts()
 let releaseTime = 400 // Controls the color change when the player or Simon clicks().
 let simonPlayTime // Controls the amount of time between each step when Simon is playing simonPattern sequence.
-let simonPlayTimeDefaultVal = 1300 // Variable simonPlayTime varies during the game (see playSimonPattern()). This default value allows to revert it dinamically.
+let simonPlayTimeDefaultVal = 1300 // Variable simonPlayTime varies during the game (see playSimonPattern()). This default value allows to revert it dynamically.
 let correctColorTime = 550 // When the player loses, this controls the amount of time the correct step is displayed on screen.
 let transitionTime = 1200 // Time between the end of a player's succesfull sequence and Simon's turn. Emojis and Msgs are displayed during this.
 let simonSeqEnd = 400 // Time between the end of Simon's sequence and the player's turn
@@ -53,6 +53,7 @@ const redBtnEl = document.getElementById("red-btn")
 const yellowBtnEl = document.getElementById("yellow-btn")
 const blueBtnEl = document.getElementById("blue-btn")
 const centerBtnEl = document.getElementById("center-btn")
+const repeatPatternBtnEl = document.getElementById("repeat-pattern-btn")
 
 /*----- event listeners -----*/
 document.getElementById("center-btn").addEventListener("click", centerBtnClick)
