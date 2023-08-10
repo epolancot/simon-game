@@ -23,11 +23,11 @@ const emojis = {
 
 // Game sounds variables using howler.js audio library. (https://github.com/goldfire/howler.js)
 // This library fixes Safari Desktop and iOS sound delay issue
-const greenSound = new Howl({src: ['../sounds/green.mp3'], html5: true}) //mp3 duration 0.41775
-const redSound = new Howl({src: ['../sounds/red.mp3'], html5: true}) //mp3 duration 0.418333
-const blueSound = new Howl({src: ['../sounds/blue.mp3'], html5: true}) //mp3 duration 0.5228
-const yellowSound = new Howl({src: ['../sounds/yellow.mp3'], html5: true}) //mp3 duration 0.5235
-const errorSound = new Howl({src: ['../sounds/error.mp3'], html5: true}) //mp3 duration 1.619594
+const greenSound = new Howl({ src: ['../sounds/green.mp3'], html5: true }) //mp3 duration 0.41775
+const redSound = new Howl({ src: ['../sounds/red.mp3'], html5: true }) //mp3 duration 0.418333
+const blueSound = new Howl({ src: ['../sounds/blue.mp3'], html5: true }) //mp3 duration 0.5228
+const yellowSound = new Howl({ src: ['../sounds/yellow.mp3'], html5: true }) //mp3 duration 0.5235
+const errorSound = new Howl({ src: ['../sounds/error.mp3'], html5: true }) //mp3 duration 1.619594
 
 /*----- state variables -----*/
 let turn // Keep track of who is currently playing. 0 = Simon : 1 = Player 
@@ -35,7 +35,7 @@ let stepCount // Used to count through the simonPattern array after invoking pla
 let currentPlayerStep // Keep track of player's current step in the sequence (see verify ()) 
 let simonPattern = [] // Holds Simon's steps sequence. Ex. ["green-btn", "blue-btn", "blue-btn"] 
 let currentScore
-let bestScore = 0 
+let bestScore = 0
 
 // Time setting for setTimeouts()
 let releaseTime = 400 // Controls the color change when the player or Simon clicks().
@@ -78,7 +78,6 @@ function init() {
     // Prepare center button caption.
     centerBtnEl.style.fontFamily = "Helvetica"
     centerBtnEl.innerHTML = "Start"
-    repeatPatternBtnEl.style.visibility = "hidden"  
     // Set the best score display
     scoreContainerEl.innerHTML = `<div id='score-text'>Best:</div><div id='best-score'>${bestScore}</div>`
 }
@@ -118,27 +117,26 @@ function playSimonPattern() {
         setPlayBtnStatus("disabled")
         if (simonPattern[index] === "green-btn") {
             greenBtnClick()
-            if (stepCount === simonPattern.length) {simonPlayTime=simonSeqEnd}
+            if (stepCount === simonPattern.length) { simonPlayTime = simonSeqEnd }
             setTimeout(playSimonPattern, simonPlayTime)
         } else if (simonPattern[index] === "red-btn") {
             redBtnClick()
-            if (stepCount === simonPattern.length) {simonPlayTime=simonSeqEnd}
+            if (stepCount === simonPattern.length) { simonPlayTime = simonSeqEnd }
             setTimeout(playSimonPattern, simonPlayTime)
         } else if (simonPattern[index] === "yellow-btn") {
             yellowBtnClick()
-            if (stepCount === simonPattern.length) {simonPlayTime=simonSeqEnd}
+            if (stepCount === simonPattern.length) { simonPlayTime = simonSeqEnd }
             setTimeout(playSimonPattern, simonPlayTime)
         } else if (simonPattern[index] === "blue-btn") {
             blueBtnClick()
-            if (stepCount === simonPattern.length) {simonPlayTime=simonSeqEnd}
+            if (stepCount === simonPattern.length) { simonPlayTime = simonSeqEnd }
             setTimeout(playSimonPattern, simonPlayTime)
         }
         centerBtnEl.style.fontFamily = "Squada One"
         centerBtnEl.innerText = "SIMON"
-        repeatPatternBtnEl.style.visibility = "visible"
         stepCount++
     } else {
-        simonPlayTime=simonPlayTimeDefaultVal
+        simonPlayTime = simonPlayTimeDefaultVal
         turn = 1
         setPlayBtnStatus("enabled")
         centerBtnEl.style.fontFamily = "Orbitron"
@@ -147,12 +145,12 @@ function playSimonPattern() {
 }
 
 function setPlayBtnStatus(status) {
-    if (status === "enabled"){
+    if (status === "enabled") {
         greenBtnEl.disabled = false
         redBtnEl.disabled = false
         blueBtnEl.disabled = false
         yellowBtnEl.disabled = false
-        centerBtnEl.disabled = true    
+        centerBtnEl.disabled = true
     } else if (status === "disabled") {
         greenBtnEl.disabled = true
         redBtnEl.disabled = true
@@ -174,7 +172,7 @@ function greenBtnClick() {
             greenSound.play()
             greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
             setTimeout(() => greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)", releaseTime)
-        } 
+        }
     } else {
         greenSound.play()
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
@@ -188,7 +186,7 @@ function redBtnClick() {
             redSound.play()
             redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
             setTimeout(() => redBtnEl.style.backgroundColor = "rgb(129, 37, 37)", releaseTime)
-        } 
+        }
     } else {
         redSound.play()
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
@@ -202,7 +200,7 @@ function blueBtnClick() {
             blueSound.play()
             blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
             setTimeout(() => blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)", releaseTime)
-        } 
+        }
     } else {
         blueSound.play()
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
@@ -234,7 +232,7 @@ function verify(selectedButton) {
             currentPlayerStep = 0
             stepCount = 0
             setEmoji(simonPattern.length)
-            setTimeout(render,transitionTime)
+            setTimeout(render, transitionTime)
             return true
         } else {
             lose(simonPattern[currentPlayerStep])
@@ -258,22 +256,22 @@ function lose(correctStep) {
     errorSound.play()
     centerBtnEl.style.background = "rgb(0, 0, 0)"
     // Show correct color in the sequence after losing.
-    if (correctStep==="green-btn") {
+    if (correctStep === "green-btn") {
         greenBtnEl.style.backgroundColor = "rgb(99, 225, 99)"
         setTimeout(btnRelease => {
             greenBtnEl.style.backgroundColor = "rgb(39, 80, 39)"
         }, correctColorTime)
-    } else if (correctStep==="red-btn") {
+    } else if (correctStep === "red-btn") {
         redBtnEl.style.backgroundColor = "rgb(255, 66, 63)"
         setTimeout(btnRelease => {
             redBtnEl.style.backgroundColor = "rgb(129, 37, 37)"
         }, correctColorTime)
-    } else if (correctStep==="blue-btn") {
+    } else if (correctStep === "blue-btn") {
         blueBtnEl.style.backgroundColor = "rgb(68, 111, 255)"
         setTimeout(btnRelease => {
             blueBtnEl.style.backgroundColor = "rgb(49, 78, 173)"
         }, correctColorTime)
-    } else if (correctStep==="yellow-btn") {
+    } else if (correctStep === "yellow-btn") {
         yellowBtnEl.style.backgroundColor = "rgb(255, 255, 0)"
         setTimeout(btnRelease => {
             yellowBtnEl.style.backgroundColor = "rgb(146, 146, 34)"
@@ -301,31 +299,31 @@ function setEmoji(level) {
     } else if (level < 15) {
         centerBtnEl.innerText = emojis["5"]
         centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 40%)"
-    } else if (level === 15 ){
-        centerBtnEl.innerText = emojis["6"]                         
+    } else if (level === 15) {
+        centerBtnEl.innerText = emojis["6"]
         centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 50%)"
         scoreContainerEl.style.display = "flex"
         scoreContainerEl.innerHTML = "<div id='chat'>Amazing!</div>"
-        simonPlayTimeDefaultVal = 850      
+        simonPlayTimeDefaultVal = 850
     } else if (level < 23) {
         centerBtnEl.innerText = emojis["7"]
-        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 60%)" 
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 60%)"
     } else if (level === 23) {
         centerBtnEl.innerText = emojis["8"]
         centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 70%)"
         scoreContainerEl.style.display = "flex"
         scoreContainerEl.innerHTML = "<div id='chat'>Elon Musk has joined the chat</div>"
-        simonPlayTimeDefaultVal = 700   
+        simonPlayTimeDefaultVal = 700
     } else if (level < 26) {
-        centerBtnEl.innerText = emojis["9"] 
+        centerBtnEl.innerText = emojis["9"]
     } else if (level < 30) {
         centerBtnEl.innerText = emojis["10"]
-        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 80%)" 
+        centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 80%)"
     } else if (level < 35) {
-        centerBtnEl.innerText = emojis["11"] 
+        centerBtnEl.innerText = emojis["11"]
         centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 90%)"
     } else if (level === 35) {
-        centerBtnEl.innerText = emojis["12"] 
+        centerBtnEl.innerText = emojis["12"]
         centerBtnEl.style.background = "radial-gradient(circle, rgba(255,134,0,1) 0%, rgba(0,0,0,1) 100%)"
         scoreContainerEl.style.display = "flex"
         scoreContainerEl.innerHTML = "<div id='chat'>I'm out</div>"
