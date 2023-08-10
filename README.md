@@ -1,5 +1,5 @@
 # Simon game
-![robot](/assets/imgs/readme-imgs/game-intro.png)
+![robot](/src/imgs/readme-imgs/game-intro.png)
 
 ## Date: 5/12/2023
 
@@ -30,25 +30,25 @@
 
 ### **Wireframing**
 
-![wireframe](/assets/imgs/readme-imgs/wireframing.png)
+![wireframe](/src/imgs/readme-imgs/wireframing.png)
 
 After the first fully functional implementation of this project, the scores display felt a little confusing. The Current Score now resides in the center of the controls, saving screen real estate and putting that DOM element to work full time.
 
 --- 
 
 #### **Typography**
-![Sad buttons](/assets/imgs/readme-imgs/typography.png)
+![Sad buttons](/src/imgs/readme-imgs/typography.png)
 
 #### **In the beginning the buttons were sad... and misplaced! :(**
-![Sad buttons](/assets/imgs/readme-imgs/game-intro-basic-buttons.png)
+![Sad buttons](/src/imgs/readme-imgs/game-intro-basic-buttons.png)
 
 With some CSS' border-radius love they are now full of joy, waiting for avid players to try their best to beat Simon. 
 
 #### **Use of CSS gradient to accent level progression**
-![Levels](/assets/imgs/readme-imgs/levels.png)
+![Levels](/src/imgs/readme-imgs/levels.png)
 
 #### **Each time the player completes a sequence, Simon shows an emoji**
-![Emojis](/assets/imgs/readme-imgs/emojis.png)
+![Emojis](/src/imgs/readme-imgs/emojis.png)
 
 
 #### Here's a brief explanation of all JS functions used. In order of appearance:
@@ -66,13 +66,13 @@ With some CSS' border-radius love they are now full of joy, waiting for avid pla
 - modeToggle() => Updates DOM elements for dark mode.
 
 #### **Dark mode is available through a simple toggle switch (so fancy!)**
-![Emojis](/assets/imgs/readme-imgs/toggle-switch.png)
+![Emojis](/src/imgs/readme-imgs/toggle-switch.png)
 
 ### The project itself was deployed and can be viewed [here](http://simongame-ga.surge.sh)
 ---
 
 #### **File tree**
-![Emojis](/assets/imgs/readme-imgs/tree.png)
+![Emojis](/src/imgs/readme-imgs/tree.png)
 
 ---
 
